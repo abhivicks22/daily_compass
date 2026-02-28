@@ -208,11 +208,10 @@ export function TaskList() {
             {/* Add task form */}
             <AnimatePresence>
                 {showForm && (
-                    <motion.form
+                    <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        onSubmit={handleSubmit}
                         className="mb-3 p-3 rounded-[var(--radius-lg)] bg-[var(--color-paper)] border border-[var(--color-border)]"
                     >
                         <input
@@ -220,6 +219,12 @@ export function TaskList() {
                             autoFocus
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault()
+                                    if (title.trim()) handleSubmit(e)
+                                }
+                            }}
                             placeholder="What do you need to do?"
                             className="w-full px-3 py-2 text-sm rounded-[var(--radius-md)] border border-[var(--color-border)] focus:outline-none focus:border-[var(--color-amber)] transition-colors bg-white mb-2"
                         />
@@ -255,13 +260,14 @@ export function TaskList() {
                                 Cancel
                             </button>
                             <button
-                                type="submit"
+                                type="button"
+                                onClick={handleSubmit}
                                 className="px-4 py-1.5 text-xs font-medium rounded-[var(--radius-md)] bg-[var(--color-amber)] text-white hover:bg-[var(--color-amber-dark)] transition-colors"
                             >
                                 Add
                             </button>
                         </div>
-                    </motion.form>
+                    </motion.div>
                 )}
             </AnimatePresence>
 

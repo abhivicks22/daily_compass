@@ -108,11 +108,10 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
             {/* Add goal form */}
             <AnimatePresence>
                 {showForm && (
-                    <motion.form
+                    <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        onSubmit={handleAdd}
                         className="p-3 rounded-[var(--radius-lg)] bg-[var(--color-paper)] border border-[var(--color-border)]"
                     >
                         <input
@@ -120,6 +119,12 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
                             autoFocus
                             value={text}
                             onChange={(e) => setText(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault()
+                                    if (text.trim()) handleAdd(e)
+                                }
+                            }}
                             placeholder="e.g. Complete 5 job applications"
                             className="w-full px-3 py-2 text-sm rounded-[var(--radius-md)] border border-[var(--color-border)] focus:outline-none focus:border-[var(--color-amber)] bg-white mb-2"
                         />
@@ -156,13 +161,14 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
                                 Cancel
                             </button>
                             <button
-                                type="submit"
+                                type="button"
+                                onClick={handleAdd}
                                 className="px-4 py-1.5 text-xs font-medium rounded bg-[var(--color-amber)] text-white hover:bg-[var(--color-amber-dark)]"
                             >
                                 Add goal
                             </button>
                         </div>
-                    </motion.form>
+                    </motion.div>
                 )}
             </AnimatePresence>
 
