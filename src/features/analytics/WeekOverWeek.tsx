@@ -29,12 +29,12 @@ function Trend({ curr, prev, suffix = '', invert = false }: { curr: number; prev
 
 export function WeekOverWeek({ current, previous }: Props) {
     return (
-        <section className="bg-white rounded-[var(--radius-xl)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
+        <section className="py-8 border-b border-[var(--color-border)] last:border-b-0">
             <h3
-                className="text-base font-semibold text-[var(--color-navy)] mb-4"
+                className="text-[14px] font-semibold text-[var(--color-text-primary)] mb-6 tracking-tight"
                 style={{ fontFamily: 'var(--font-heading)' }}
             >
-                📈 Week-over-Week
+                Week-over-Week
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -68,13 +68,15 @@ function CompareCard({ label, current, previous, trend }: {
     trend: React.ReactNode
 }) {
     return (
-        <div className="p-3 rounded-[var(--radius-md)] bg-[var(--color-paper)] border border-[var(--color-border-light)]">
-            <p className="text-xs text-[var(--color-text-secondary)] mb-1">{label}</p>
+        <div className="p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-card)]">
+            <p className="text-[11px] font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">{label}</p>
             <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-lg font-bold text-[var(--color-navy)]">{current}</span>
-                <span className="text-xs text-[var(--color-text-muted)]">vs {previous}</span>
+                <span className="text-[20px] font-semibold text-[var(--color-text-primary)] tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>{current}</span>
+                <span className="text-[11px] text-[var(--color-text-muted)]">vs {previous}</span>
             </div>
-            {trend}
+            <div className="mt-2 text-[12px]">
+                {trend}
+            </div>
         </div>
     )
 }

@@ -8,25 +8,25 @@ export function WeeklyWins({ days }: { days: DayEntry[] }) {
     if (daysWithWins.length === 0) return null
 
     return (
-        <section className="bg-white rounded-[var(--radius-xl)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
+        <section className="py-8 border-b border-[var(--color-border)] last:border-b-0">
             <h3
-                className="text-base font-semibold text-[var(--color-navy)] mb-3 flex items-center gap-2"
+                className="text-[14px] font-semibold text-[var(--color-text-primary)] mb-4 flex items-center gap-2 tracking-tight"
                 style={{ fontFamily: 'var(--font-heading)' }}
             >
-                <Trophy size={18} className="text-[var(--color-green)]" />
+                <Trophy size={16} className="text-[var(--color-text-primary)]" />
                 This Week's Wins
             </h3>
 
-            <div className="space-y-2.5">
+            <div className="space-y-3">
                 {daysWithWins.map((d) => (
                     <div
                         key={d.date}
-                        className="flex gap-3 p-3 rounded-[var(--radius-md)] bg-[var(--color-green)]/5 border border-[var(--color-green)]/15"
+                        className="flex gap-4 items-start pb-3 border-b border-[var(--color-border)] last:border-0 last:pb-0"
                     >
-                        <span className="text-xs font-medium text-[var(--color-green)] shrink-0 mt-0.5">
+                        <span className="text-[11px] font-medium text-[var(--color-text-secondary)] shrink-0 mt-0.5 uppercase tracking-wider w-10">
                             {format(parseISO(d.date), 'EEE')}
                         </span>
-                        <p className="text-sm text-[var(--color-navy)] whitespace-pre-wrap">{d.wins}</p>
+                        <p className="text-[14px] text-[var(--color-text-primary)] whitespace-pre-wrap leading-relaxed">{d.wins}</p>
                     </div>
                 ))}
             </div>

@@ -81,12 +81,12 @@ export function WeeklyDashboard() {
             </div>
 
             {!hasData ? (
-                <div className="bg-white rounded-[var(--radius-xl)] p-8 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)] text-center">
-                    <div className="text-4xl mb-3">🌱</div>
-                    <h3 className="text-lg font-semibold text-[var(--color-navy)] mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
+                <div className="py-12 border border-dashed border-[var(--color-border)] rounded-lg text-center">
+                    <div className="text-3xl mb-3 grayscale opacity-60">🌱</div>
+                    <h3 className="text-[16px] font-semibold text-[var(--color-navy)] mb-2 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
                         No data yet for this week
                     </h3>
-                    <p className="text-sm text-[var(--color-text-muted)] max-w-md mx-auto">
+                    <p className="text-[13px] text-[var(--color-text-muted)] max-w-md mx-auto leading-relaxed">
                         Start logging your days and your weekly insights will appear here. Every entry counts — even a single energy check-in.
                     </p>
                 </div>
@@ -138,15 +138,15 @@ export function WeeklyDashboard() {
 
 function StatCard({ icon, label, value, sub }: { icon: React.ReactNode; label: string; value: string; sub: string }) {
     return (
-        <div className="bg-white rounded-[var(--radius-lg)] p-3.5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
-            <div className="flex items-center gap-2 mb-1.5">
+        <div className="p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-card)]">
+            <div className="flex items-center gap-2 mb-2">
                 {icon}
-                <span className="text-xs text-[var(--color-text-secondary)]">{label}</span>
+                <span className="text-[11px] font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">{label}</span>
             </div>
-            <p className="text-xl font-bold text-[var(--color-navy)]" style={{ fontFamily: 'var(--font-heading)' }}>
+            <p className="text-[24px] font-semibold text-[var(--color-text-primary)] tracking-tight mb-0.5" style={{ fontFamily: 'var(--font-heading)' }}>
                 {value}
             </p>
-            <p className="text-[11px] text-[var(--color-text-muted)]">{sub}</p>
+            <p className="text-[11px] font-medium text-[var(--color-text-muted)]">{sub}</p>
         </div>
     )
 }

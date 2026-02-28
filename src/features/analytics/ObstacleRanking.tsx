@@ -7,30 +7,30 @@ export function ObstacleRanking({ stats }: { stats: WeeklyStats }) {
     const maxCount = stats.obstacleFrequency[0]?.count || 1
 
     return (
-        <section className="bg-white rounded-[var(--radius-xl)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
+        <section className="py-8 border-b border-[var(--color-border)] last:border-b-0">
             <h3
-                className="text-base font-semibold text-[var(--color-navy)] mb-1 flex items-center gap-2"
+                className="text-[14px] font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-2 tracking-tight"
                 style={{ fontFamily: 'var(--font-heading)' }}
             >
-                <AlertTriangle size={18} className="text-[var(--color-rose)]" />
+                <AlertTriangle size={16} className="text-[var(--color-text-primary)]" />
                 Top Obstacles
             </h3>
-            <p className="text-xs text-[var(--color-text-muted)] mb-4">
+            <p className="text-[12px] text-[var(--color-text-muted)] mb-6">
                 What got in the way most often? These are systemic — not personal failures.
             </p>
 
-            <div className="space-y-2.5">
+            <div className="space-y-4">
                 {stats.obstacleFrequency.slice(0, 5).map((obs, i) => (
                     <div key={i} className="space-y-1">
-                        <div className="flex items-center justify-between">
-                            <p className="text-sm text-[var(--color-navy)] capitalize">{obs.text}</p>
-                            <span className="text-xs font-medium text-[var(--color-text-muted)]">
+                        <div className="flex items-center justify-between mb-1.5">
+                            <p className="text-[13px] text-[var(--color-text-primary)] capitalize font-medium">{obs.text}</p>
+                            <span className="text-[11px] font-medium text-[var(--color-text-secondary)]">
                                 {obs.count}×
                             </span>
                         </div>
-                        <div className="h-1.5 bg-[var(--color-paper-dark)] rounded-full overflow-hidden">
+                        <div className="h-[2px] bg-[var(--color-border)] rounded-full overflow-hidden">
                             <div
-                                className="h-full bg-[var(--color-rose)] rounded-full transition-all duration-500"
+                                className="h-full bg-[var(--color-text-primary)] rounded-full transition-all duration-500"
                                 style={{ width: `${(obs.count / maxCount) * 100}%` }}
                             />
                         </div>

@@ -44,11 +44,11 @@ export function JournalView() {
     }, [prompt])
 
     return (
-        <div className="max-w-2xl mx-auto space-y-6 animate-fade-in">
+        <div className="space-y-6 animate-fade-in flex flex-col h-full">
             {/* Header */}
-            <div className="flex items-center gap-3">
-                <BookOpen size={28} className="text-[var(--color-blue)]" />
-                <h1 className="text-2xl font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>
+            <div className="flex items-center gap-3 mb-2 shrink-0">
+                <BookOpen size={24} className="text-[var(--color-text-primary)]" />
+                <h1 className="text-[24px] font-semibold text-[var(--color-text-primary)] tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
                     Journal
                 </h1>
             </div>
@@ -56,7 +56,7 @@ export function JournalView() {
             <DateNavigator />
 
             {/* Prompt Card */}
-            <div className="bg-white rounded-[var(--radius-lg)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
+            <div className="py-6 border-b border-[var(--color-border)] shrink-0">
                 <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">
                         <p className="text-[11px] uppercase tracking-wider text-[var(--color-text-muted)] mb-2 font-medium">
@@ -74,42 +74,42 @@ export function JournalView() {
                     </div>
                     <button
                         onClick={handleShuffle}
-                        className="p-2 rounded-[var(--radius-md)] hover:bg-[var(--color-paper-dark)] text-[var(--color-text-muted)] hover:text-[var(--color-blue)] transition-all shrink-0"
+                        className="p-2 rounded-md hover:bg-[var(--color-surface-hover)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all shrink-0"
                         aria-label="Shuffle prompt"
                         title="Try another prompt"
                     >
-                        <Shuffle size={18} />
+                        <Shuffle size={16} />
                     </button>
                 </div>
             </div>
 
             {/* Journal Textarea */}
-            <div className="bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] border border-[var(--color-border-light)] overflow-hidden">
+            <div className="flex-1 flex flex-col min-h-[500px]">
                 <textarea
                     ref={textareaRef}
                     value={content}
                     onChange={(e) => handleChange(e.target.value)}
                     placeholder="Start writing... Let your thoughts flow freely."
-                    className="w-full p-5 text-sm leading-relaxed resize-none bg-transparent focus:outline-none"
-                    style={{ minHeight: '320px', fontFamily: 'var(--font-body)' }}
+                    className="w-full flex-1 py-4 text-[16px] leading-[1.8] resize-none bg-transparent focus:outline-none placeholder:text-[var(--color-text-muted)] text-[var(--color-text-primary)]"
+                    style={{ fontFamily: 'var(--font-body)' }}
                     disabled={isLoading}
                 />
 
                 {/* Footer: Word count + Save indicator */}
-                <div className="flex items-center justify-between px-5 py-3 border-t border-[var(--color-border-light)] bg-[var(--color-paper)]">
-                    <span className="text-[11px] text-[var(--color-text-muted)]">
+                <div className="flex items-center justify-between py-4 mt-auto border-t border-[var(--color-border)] shrink-0">
+                    <span className="text-[11px] font-medium text-[var(--color-text-muted)] uppercase tracking-wider">
                         {wordCount} {wordCount === 1 ? 'word' : 'words'}
                     </span>
-                    <div className="flex items-center gap-1.5 text-[11px]">
+                    <div className="flex items-center gap-1.5 text-[11px] font-medium text-[var(--color-text-muted)] uppercase tracking-wider">
                         {isSaving ? (
                             <>
-                                <Loader2 size={12} className="animate-spin text-[var(--color-text-muted)]" />
-                                <span className="text-[var(--color-text-muted)]">Saving...</span>
+                                <Loader2 size={12} className="animate-spin" />
+                                <span>Saving...</span>
                             </>
                         ) : content.length > 0 ? (
                             <>
-                                <Check size={12} className="text-[var(--color-green)]" />
-                                <span className="text-[var(--color-green)]">Saved</span>
+                                <Check size={12} className="text-[var(--color-text-primary)]" />
+                                <span className="text-[var(--color-text-primary)]">Saved</span>
                             </>
                         ) : null}
                     </div>

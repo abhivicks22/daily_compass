@@ -45,20 +45,20 @@ export function HabitView() {
     }, [name, emoji, color, addHabit])
 
     return (
-        <div className="max-w-2xl mx-auto space-y-6 animate-fade-in">
+        <div className="space-y-6 animate-fade-in">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-3">
-                    <Target size={28} className="text-[var(--color-amber)]" />
-                    <h1 className="text-2xl font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <Target size={24} className="text-[var(--color-text-primary)]" />
+                    <h1 className="text-[24px] font-semibold text-[var(--color-text-primary)] tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
                         Habits
                     </h1>
                 </div>
                 <button
                     onClick={() => setShowForm(!showForm)}
-                    className="flex items-center gap-1.5 px-3 py-2 bg-[var(--color-amber)] text-white rounded-[var(--radius-md)] text-sm font-medium hover:opacity-90 transition-opacity"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] transition-colors"
                 >
-                    {showForm ? <X size={16} /> : <Plus size={16} />}
+                    {showForm ? <X size={14} /> : <Plus size={14} />}
                     {showForm ? 'Cancel' : 'Add Habit'}
                 </button>
             </div>
@@ -74,13 +74,14 @@ export function HabitView() {
                         exit={{ height: 0, opacity: 0 }}
                         className="overflow-hidden"
                     >
-                        <div className="bg-white rounded-[var(--radius-lg)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)] space-y-4">
+                        <div className="p-5 border border-dashed border-[var(--color-border)] rounded-lg bg-[var(--color-surface-card)] space-y-5 mb-4">
                             <input
                                 type="text"
                                 value={name}
+                                autoFocus
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder="Habit name (e.g., Read 10 pages)"
-                                className="w-full px-3 py-2.5 border border-[var(--color-border)] rounded-[var(--radius-md)] text-sm bg-[var(--color-paper)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
+                                className="w-full py-2 text-[15px] bg-transparent border-b border-[var(--color-border)] focus:outline-none focus:border-[var(--color-text-primary)] transition-colors placeholder-[var(--color-text-muted)]"
                                 onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
                             />
 
@@ -127,21 +128,22 @@ export function HabitView() {
                                 </div>
                             </div>
 
-                            <button
-                                onClick={handleAdd}
-                                disabled={!name.trim()}
-                                className="px-4 py-2 bg-[var(--color-navy)] text-white rounded-[var(--radius-md)] text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
-                            >
-                                Create Habit
-                            </button>
+                            <div className="flex justify-end pt-2">
+                                <button
+                                    onClick={handleAdd}
+                                    disabled={!name.trim()}
+                                    className="px-5 py-2 bg-[var(--color-text-primary)] text-[var(--color-surface)] rounded-md text-[13px] font-medium hover:bg-[var(--color-text-secondary)] transition-colors disabled:opacity-40"
+                                >
+                                    Create Habit
+                                </button>
+                            </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {/* Habit Cards */}
             {habits.length > 0 ? (
-                <div className="space-y-4">
+                <div className="space-y-0">
                     {habits.map((habit) => (
                         <HabitCard
                             key={habit.id}
@@ -157,9 +159,14 @@ export function HabitView() {
                 </div>
             ) : (
                 !showForm && (
-                    <div className="text-center py-10 text-[var(--color-text-muted)]">
-                        <Target size={40} className="mx-auto mb-3 opacity-30" />
-                        <p className="text-sm">No habits yet. Small, consistent actions compound over time.</p>
+                    <div className="text-center py-16 border border-dashed border-[var(--color-border)] rounded-lg">
+                        <p className="text-[13px] text-[var(--color-text-muted)]">No habits yet. Small, consistent actions compound over time.</p>
+                        <button
+                            onClick={() => setShowForm(true)}
+                            className="mt-4 text-[13px] font-medium text-[var(--color-text-primary)] hover:underline transition-all"
+                        >
+                            Create a Habit
+                        </button>
                     </div>
                 )
             )}
@@ -195,35 +202,36 @@ function HabitCard({ habit, date, completed, streak, heatmap, onToggle, onRemove
     return (
         <motion.div
             layout
-            className="bg-white rounded-[var(--radius-lg)] p-4 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)] group"
+            className="py-6 border-b border-[var(--color-border)] last:border-b-0 group"
         >
             {/* Top row */}
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-4 mb-4">
                 <button
                     onClick={onToggle}
-                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 shrink-0"
+                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 shrink-0 border"
                     style={{
-                        background: completed ? habit.color : 'var(--color-paper)',
-                        border: completed ? 'none' : '2px solid var(--color-border)',
+                        background: completed ? habit.color : 'var(--color-surface-hover)',
+                        borderColor: completed ? 'transparent' : 'var(--color-border)',
+                        color: completed ? '#fff' : 'var(--color-text-primary)',
                     }}
                     aria-label={completed ? 'Mark incomplete' : 'Mark complete'}
                 >
                     {completed ? (
-                        <Check size={20} className="text-white animate-check-pop" />
+                        <Check size={18} className="animate-check-pop" />
                     ) : (
-                        <span className="text-lg">{habit.emoji}</span>
+                        <span className="text-[18px] opacity-70 grayscale">{habit.emoji}</span>
                     )}
                 </button>
 
                 <div className="flex-1 min-w-0">
                     <p
-                        className="font-medium text-sm"
-                        style={{ textDecoration: completed ? 'line-through' : 'none', opacity: completed ? 0.6 : 1 }}
+                        className="font-medium text-[15px] tracking-tight"
+                        style={{ textDecoration: completed ? 'line-through' : 'none', color: completed ? 'var(--color-text-muted)' : 'var(--color-text-primary)' }}
                     >
                         {habit.name}
                     </p>
                     {streak > 0 && (
-                        <p className="text-[11px] flex items-center gap-1 mt-0.5" style={{ color: habit.color }}>
+                        <p className="text-[12px] flex items-center gap-1.5 mt-1 font-medium" style={{ color: habit.color }}>
                             <Flame size={12} />
                             {streak} day streak
                         </p>
@@ -232,16 +240,16 @@ function HabitCard({ habit, date, completed, streak, heatmap, onToggle, onRemove
 
                 <button
                     onClick={onRemove}
-                    className="opacity-0 group-hover:opacity-100 p-1.5 rounded hover:bg-[var(--color-rose)]/10 text-[var(--color-text-muted)] hover:text-[var(--color-rose)] transition-all"
+                    className="opacity-0 group-hover:opacity-100 p-2 rounded-md hover:bg-[var(--color-surface-hover)] text-[var(--color-text-muted)] hover:text-[var(--color-rose)] transition-all"
                     aria-label="Remove habit"
                 >
-                    <Trash2 size={14} />
+                    <Trash2 size={16} />
                 </button>
             </div>
 
             {/* Heatmap */}
             <div
-                className="grid gap-[3px]"
+                className="grid gap-1 ml-14"
                 style={{
                     gridTemplateColumns: 'repeat(12, 1fr)',
                     gridTemplateRows: 'repeat(7, 1fr)',
@@ -253,8 +261,9 @@ function HabitCard({ habit, date, completed, streak, heatmap, onToggle, onRemove
                         key={cell.date}
                         className="aspect-square rounded-[2px] transition-colors"
                         style={{
-                            background: cell.filled ? habit.color : 'var(--color-paper)',
-                            opacity: cell.filled ? 1 : 0.5,
+                            background: cell.filled ? habit.color : 'transparent',
+                            opacity: cell.filled ? 1 : 1,
+                            border: cell.filled ? 'none' : '1px solid var(--color-border)'
                         }}
                         title={`${format(new Date(cell.date + 'T12:00:00'), 'MMM d')}${cell.filled ? ' ✓' : ''}`}
                     />

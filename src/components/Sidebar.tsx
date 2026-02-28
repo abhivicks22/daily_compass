@@ -16,21 +16,22 @@ const navItems = [
 
 export function Sidebar({ onClose }: SidebarProps) {
     return (
-        <div className="h-full flex flex-col bg-[var(--color-navy)] text-white">
+        <div className="h-full flex flex-col bg-white border-r border-[var(--color-border)] text-[var(--color-text-primary)]">
             {/* Brand */}
-            <div className="px-5 py-6 flex items-center justify-between">
+            <div className="px-5 py-6 flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                    <Compass size={28} className="text-[var(--color-amber)]" />
+                    <div className="w-8 h-8 rounded-lg bg-[var(--color-navy)] text-white flex items-center justify-center">
+                        <Compass size={20} />
+                    </div>
                     <div>
-                        <h1 className="text-lg font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <h1 className="text-[15px] font-semibold tracking-tight text-[var(--color-navy)]" style={{ fontFamily: 'var(--font-heading)' }}>
                             Daily Compass
                         </h1>
-                        <p className="text-xs text-white/50 mt-0.5">Your personal OS</p>
                     </div>
                 </div>
                 <button
                     onClick={onClose}
-                    className="lg:hidden p-1 rounded hover:bg-white/10 transition-colors"
+                    className="lg:hidden p-1.5 rounded-md text-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)] transition-colors"
                     aria-label="Close menu"
                 >
                     <X size={18} />
@@ -45,11 +46,11 @@ export function Sidebar({ onClose }: SidebarProps) {
                         return (
                             <div
                                 key={item.to}
-                                className="flex items-center gap-3 px-3 py-2.5 rounded-[var(--radius-md)] text-white/30 cursor-not-allowed"
+                                className="flex items-center gap-3 px-4 py-2 text-[var(--color-text-muted)] opacity-50 cursor-not-allowed mx-2"
                             >
                                 <Icon size={18} />
-                                <span className="text-sm">{item.label}</span>
-                                <span className="ml-auto text-[10px] bg-white/10 px-1.5 py-0.5 rounded-full">Soon</span>
+                                <span className="text-[14px] font-medium">{item.label}</span>
+                                <span className="ml-auto text-[10px] uppercase tracking-wider font-semibold border border-[var(--color-border)] px-1.5 py-0.5 rounded-sm">Soon</span>
                             </div>
                         )
                     }
@@ -59,23 +60,27 @@ export function Sidebar({ onClose }: SidebarProps) {
                             to={item.to}
                             onClick={onClose}
                             className={({ isActive }) =>
-                                `flex items-center gap-3 px-3 py-2.5 rounded-[var(--radius-md)] transition-all duration-150
+                                `flex items-center gap-3 px-4 py-2 mx-2 mb-1 rounded-md transition-all duration-200
                 ${isActive
-                                    ? 'bg-[var(--color-amber)] text-[var(--color-navy)] font-medium shadow-md'
-                                    : 'text-white/70 hover:bg-white/10 hover:text-white'
+                                    ? 'bg-[var(--color-surface-hover)] text-[var(--color-navy)] font-semibold'
+                                    : 'text-[var(--color-text-secondary)] hover:text-[var(--color-navy)] hover:bg-[var(--color-surface-hover)] font-medium'
                                 }`
                             }
                         >
-                            <Icon size={18} />
-                            <span className="text-sm">{item.label}</span>
+                            {({ isActive }) => (
+                                <>
+                                    <Icon size={18} className={isActive ? 'text-[var(--color-navy)]' : 'text-[var(--color-text-muted)]'} />
+                                    <span className="text-[14px]">{item.label}</span>
+                                </>
+                            )}
                         </NavLink>
                     )
                 })}
             </nav>
 
             {/* Footer */}
-            <div className="px-5 py-4 border-t border-white/10">
-                <p className="text-[11px] text-white/30 leading-relaxed">
+            <div className="px-7 py-6">
+                <p className="text-[12px] text-[var(--color-text-muted)] leading-relaxed font-medium">
                     Built for brains that know what to do but struggle to start.
                 </p>
             </div>

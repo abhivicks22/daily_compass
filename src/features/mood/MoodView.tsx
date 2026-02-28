@@ -44,11 +44,11 @@ export function MoodView() {
     }, [deleteMood, loadWeekMoods, currentDate])
 
     return (
-        <div className="max-w-2xl mx-auto space-y-6 animate-fade-in">
+        <div className="space-y-6 animate-fade-in">
             {/* Header */}
-            <div className="flex items-center gap-3">
-                <Heart size={28} className="text-[var(--color-rose)]" />
-                <h1 className="text-2xl font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>
+            <div className="flex items-center gap-3 mb-2">
+                <Heart size={24} className="text-[var(--color-text-primary)]" />
+                <h1 className="text-[24px] font-semibold text-[var(--color-text-primary)] tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
                     Mood Tracker
                 </h1>
             </div>
@@ -56,8 +56,8 @@ export function MoodView() {
             <DateNavigator />
 
             {/* Log Mood Card */}
-            <div className="bg-white rounded-[var(--radius-lg)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
-                <h2 className="text-sm font-medium text-[var(--color-text-secondary)] mb-4 uppercase tracking-wider">
+            <div className="py-8 border-b border-[var(--color-border)]">
+                <h2 className="text-[14px] font-semibold text-[var(--color-text-primary)] mb-6 tracking-tight">
                     How are you feeling?
                 </h2>
                 <div className="flex justify-center gap-3 mb-4">
@@ -89,16 +89,17 @@ export function MoodView() {
                                 value={note}
                                 onChange={(e) => setNote(e.target.value)}
                                 placeholder="What's on your mind? (optional)"
-                                className="w-full p-3 border border-[var(--color-border)] rounded-[var(--radius-md)] text-sm resize-none bg-[var(--color-paper)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
+                                className="w-full py-3 border-b border-[var(--color-border)] text-[15px] resize-none bg-transparent focus:outline-none focus:border-[var(--color-text-primary)] transition-colors mt-2"
                                 rows={2}
                             />
-                            <button
-                                onClick={handleAddMood}
-                                className="mt-3 flex items-center gap-2 px-4 py-2 bg-[var(--color-rose)] text-white rounded-[var(--radius-md)] text-sm font-medium hover:opacity-90 transition-opacity"
-                            >
-                                <Plus size={16} />
-                                Log Mood
-                            </button>
+                            <div className="flex justify-end mt-4">
+                                <button
+                                    onClick={handleAddMood}
+                                    className="flex items-center gap-2 px-5 py-2 bg-[var(--color-text-primary)] text-[var(--color-surface)] rounded-md text-[13px] font-medium hover:bg-[var(--color-text-secondary)] transition-colors"
+                                >
+                                    Log Mood
+                                </button>
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -106,8 +107,8 @@ export function MoodView() {
 
             {/* Today's Timeline */}
             {moods.length > 0 && (
-                <div className="bg-white rounded-[var(--radius-lg)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
-                    <h2 className="text-sm font-medium text-[var(--color-text-secondary)] mb-4 uppercase tracking-wider">
+                <div className="py-8 border-b border-[var(--color-border)]">
+                    <h2 className="text-[14px] font-semibold text-[var(--color-text-primary)] mb-6 tracking-tight">
                         Today's Mood Timeline
                     </h2>
                     <div className="space-y-3">
@@ -120,7 +121,7 @@ export function MoodView() {
                                         initial={{ opacity: 0, x: -16 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: 16 }}
-                                        className="flex items-start gap-3 p-3 rounded-[var(--radius-md)] bg-[var(--color-paper)] group"
+                                        className="flex items-start gap-4 p-3 rounded-md hover:bg-[var(--color-surface-hover)] group transition-colors"
                                     >
                                         <span className="text-2xl">{config?.emoji}</span>
                                         <div className="flex-1 min-w-0">
@@ -138,10 +139,10 @@ export function MoodView() {
                                         </div>
                                         <button
                                             onClick={() => mood.id && handleDeleteMood(mood.id)}
-                                            className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-[var(--color-rose)]/10 text-[var(--color-text-muted)] hover:text-[var(--color-rose)] transition-all"
+                                            className="opacity-0 group-hover:opacity-100 p-2 rounded-md hover:bg-[var(--color-surface-hover)] text-[var(--color-text-muted)] hover:text-[var(--color-rose)] transition-all"
                                             aria-label="Delete mood"
                                         >
-                                            <Trash2 size={14} />
+                                            <Trash2 size={16} />
                                         </button>
                                     </motion.div>
                                 )
@@ -153,8 +154,8 @@ export function MoodView() {
 
             {/* 7-Day Chart */}
             {weekData.length > 1 && (
-                <div className="bg-white rounded-[var(--radius-lg)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
-                    <h2 className="text-sm font-medium text-[var(--color-text-secondary)] mb-4 uppercase tracking-wider">
+                <div className="py-8 border-b border-[var(--color-border)]">
+                    <h2 className="text-[14px] font-semibold text-[var(--color-text-primary)] mb-6 tracking-tight">
                         7-Day Mood Trend
                     </h2>
                     <ResponsiveContainer width="100%" height={180}>

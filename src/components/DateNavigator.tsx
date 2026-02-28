@@ -12,7 +12,7 @@ export function DateNavigator() {
         <div className="flex items-center justify-between mb-6">
             <button
                 onClick={goToPrevDay}
-                className="p-2 rounded-[var(--radius-md)] hover:bg-[var(--color-paper-dark)] transition-colors"
+                className="p-2 rounded-md hover:bg-[var(--color-surface-hover)] transition-colors"
                 aria-label="Previous day"
             >
                 <ChevronLeft size={20} className="text-[var(--color-text-secondary)]" />
@@ -21,14 +21,14 @@ export function DateNavigator() {
             <div className="text-center">
                 <motion.h2
                     key={currentDate}
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-2xl font-semibold text-[var(--color-navy)]"
+                    className="text-[20px] font-semibold text-[var(--color-text-primary)] tracking-tight"
                     style={{ fontFamily: 'var(--font-heading)' }}
                 >
                     {format(dateObj, 'EEEE')}
                 </motion.h2>
-                <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">
+                <p className="text-[13px] font-medium text-[var(--color-text-muted)] mt-0.5 tracking-wide uppercase">
                     {format(dateObj, 'MMMM d, yyyy')}
                 </p>
                 {!isTodayDate && (
@@ -44,7 +44,7 @@ export function DateNavigator() {
 
             <button
                 onClick={goToNextDay}
-                className="p-2 rounded-[var(--radius-md)] hover:bg-[var(--color-paper-dark)] transition-colors"
+                className="p-2 rounded-md hover:bg-[var(--color-surface-hover)] transition-colors"
                 aria-label="Next day"
             >
                 <ChevronRight size={20} className="text-[var(--color-text-secondary)]" />

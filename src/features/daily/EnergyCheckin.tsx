@@ -6,12 +6,12 @@ export function EnergyCheckin() {
     const { day, setEnergy } = useDayStore()
 
     return (
-        <section className="bg-white rounded-[var(--radius-xl)] p-5 shadow-[var(--shadow-sm)] border border-[var(--color-border-light)]">
+        <section className="py-6 border-b border-[var(--color-border)]">
             <h3
-                className="text-base font-semibold text-[var(--color-navy)] mb-3"
+                className="text-[14px] font-semibold text-[var(--color-text-primary)] mb-4 tracking-tight"
                 style={{ fontFamily: 'var(--font-heading)' }}
             >
-                ☀️ How's your energy today?
+                Energy
             </h3>
 
             <div className="flex justify-between gap-2">
@@ -21,25 +21,21 @@ export function EnergyCheckin() {
                         <motion.button
                             key={level}
                             onClick={() => setEnergy(level)}
-                            whileTap={{ scale: 0.92 }}
+                            whileTap={{ scale: 0.95 }}
                             className={`
-                flex-1 flex flex-col items-center gap-1.5 py-3 px-2 rounded-[var(--radius-lg)] 
-                transition-all duration-200 cursor-pointer border-2
+                flex-1 flex flex-col items-center gap-1.5 py-3 rounded-lg
+                transition-all duration-200 cursor-pointer border
                 ${isSelected
-                                    ? 'shadow-md'
-                                    : 'border-transparent hover:bg-[var(--color-paper-dark)]'
+                                    ? 'border-[var(--color-text-primary)] bg-[var(--color-surface-hover)]'
+                                    : 'border-transparent hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
                                 }
               `}
-                            style={{
-                                borderColor: isSelected ? color : 'transparent',
-                                backgroundColor: isSelected ? `${color}15` : undefined,
-                            }}
                         >
-                            <span className={`text-2xl ${isSelected ? 'animate-pulse-gentle' : ''}`}>
+                            <span className={`text-[20px] ${isSelected ? 'animate-pulse-gentle grayscale-0' : 'grayscale opacity-70'}`}>
                                 {emoji}
                             </span>
                             <span
-                                className={`text-xs font-medium ${isSelected ? 'text-[var(--color-navy)]' : 'text-[var(--color-text-muted)]'}`}
+                                className={`text-[11px] font-medium ${isSelected ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-muted)]'}`}
                             >
                                 {label}
                             </span>

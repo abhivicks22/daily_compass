@@ -29,20 +29,22 @@ export function Layout() {
             </aside>
 
             {/* Main content */}
-            <main className="flex-1 overflow-y-auto">
-                {/* Mobile header */}
-                <div className="sticky top-0 z-20 lg:hidden bg-[var(--color-surface)]/95 backdrop-blur-sm border-b border-[var(--color-border)] px-4 py-3 flex items-center gap-3">
+            <main className="flex-1 overflow-y-auto relative">
+                {/* Mobile header (Glassmorphic) */}
+                <div className="sticky top-0 z-20 lg:hidden bg-white/70 backdrop-blur-md border-b border-[var(--color-border)] px-5 py-4 flex items-center gap-3">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="p-1.5 rounded-[var(--radius-md)] hover:bg-[var(--color-paper-dark)] transition-colors"
+                        className="p-1.5 rounded-md text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] transition-colors"
                         aria-label="Open menu"
                     >
-                        <Menu size={22} className="text-[var(--color-navy)]" />
+                        <Menu size={20} />
                     </button>
-                    <span className="text-lg" style={{ fontFamily: 'var(--font-heading)' }}>🧭 Daily Compass</span>
+                    <span className="text-[16px] font-semibold tracking-tight text-[var(--color-navy)]" style={{ fontFamily: 'var(--font-heading)' }}>
+                        Daily Compass
+                    </span>
                 </div>
 
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+                <div className="max-w-4xl mx-auto px-6 sm:px-10 py-8 sm:py-12">
                     <Outlet />
                 </div>
             </main>
