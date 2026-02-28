@@ -7,7 +7,7 @@ interface SidebarProps {
 
 const navItems = [
     { to: '/today', icon: CalendarDays, label: 'Today', enabled: true },
-    { to: '/week', icon: BarChart3, label: 'Weekly Review', enabled: false },
+    { to: '/week', icon: BarChart3, label: 'Weekly Review', enabled: true },
     { to: '/journal', icon: BookOpen, label: 'Journal', enabled: false },
     { to: '/habits', icon: Target, label: 'Habits', enabled: false },
     { to: '/settings', icon: Settings, label: 'Settings', enabled: true },
