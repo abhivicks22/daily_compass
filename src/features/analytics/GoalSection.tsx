@@ -13,13 +13,23 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
     const [target, setTarget] = useState(5)
     const [category, setCategory] = useState(categories[0] || '')
 
-    const handleAdd = (e: React.FormEvent) => {
-        e.preventDefault()
-        if (!text.trim()) return
-        addGoal(weekKey, { text: text.trim(), target, category })
-        setText('')
-        setTarget(5)
-        setShowForm(false)
+    const submitGoal = () => {
+        const safeText = text.trim()
+        if (!safeText) return
+
+        try {
+            addGoal(weekKey, {
+                text: safeText,
+                target: target || 5,
+                category: category || categories[0] || 'Uncategorized'
+            })
+            setText('')
+            setTarget(5)
+            setShowForm(false)
+        } catch (error: any) {
+            console.error("Failed to add goal:", error)
+            alert("Error adding goal: " + error.message)
+        }
     }
 
     return (
@@ -122,7 +132,7 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     e.preventDefault()
-                                    if (text.trim()) handleAdd(e)
+                                    submitGoal()
                                 }
                             }}
                             placeholder="e.g. Complete 5 job applications"
@@ -162,7 +172,10 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
                             </button>
                             <button
                                 type="button"
-                                onClick={handleAdd}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    submitGoal()
+                                }}
                                 className="px-4 py-1.5 text-xs font-medium rounded bg-[var(--color-amber)] text-white hover:bg-[var(--color-amber-dark)]"
                             >
                                 Add goal

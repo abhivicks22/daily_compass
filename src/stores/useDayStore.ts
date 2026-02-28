@@ -147,9 +147,13 @@ export const useDayStore = create<DayStore>((set, get) => {
                 obstacle: '',
                 createdAt: Date.now(),
             }
-            updateAndSave((state) => ({
-                day: { ...state.day, tasks: [...state.day.tasks, newTask] },
-            }))
+            updateAndSave((state) => {
+                const existingDay = state.day || {} as DayEntry
+                const existingTasks = existingDay.tasks || []
+                return {
+                    day: { ...existingDay, tasks: [...existingTasks, newTask] },
+                }
+            })
         },
 
         updateTask: (id: string, updates: Partial<TaskObject>) => {

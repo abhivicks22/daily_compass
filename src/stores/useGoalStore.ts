@@ -32,10 +32,11 @@ export const useGoalStore = create<GoalStore>()(
 
             addGoal: (weekKey: string, goal) => {
                 set((state) => {
-                    const existing = state.weeklyGoals[weekKey] || []
+                    const safeWeekly = state.weeklyGoals || {}
+                    const existing = safeWeekly[weekKey] || []
                     return {
                         weeklyGoals: {
-                            ...state.weeklyGoals,
+                            ...safeWeekly,
                             [weekKey]: [...existing, { ...goal, id: genId(), current: 0 }],
                         },
                     }

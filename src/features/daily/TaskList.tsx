@@ -164,14 +164,24 @@ export function TaskList() {
     const [category, setCategory] = useState(categories[0] || '')
     const [priority, setPriority] = useState<Priority>('not_urgent_important')
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        if (!title.trim()) return
-        addTask({ title: title.trim(), category, priority })
-        setTitle('')
-        setCategory(categories[0] || '')
-        setPriority('not_urgent_important')
-        setShowForm(false)
+    const submitTask = () => {
+        const safeTitle = title.trim()
+        if (!safeTitle) return
+
+        try {
+            addTask({
+                title: safeTitle,
+                category: category || categories[0] || 'Uncategorized',
+                priority: priority || 'not_urgent_important'
+            })
+            setTitle('')
+            setCategory(categories[0] || 'Uncategorized')
+            setPriority('not_urgent_important')
+            setShowForm(false)
+        } catch (error: any) {
+            console.error("Failed to add task:", error)
+            alert("Error adding task: " + error.message)
+        }
     }
 
     const taskStats = {
@@ -222,7 +232,7 @@ export function TaskList() {
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     e.preventDefault()
-                                    if (title.trim()) handleSubmit(e)
+                                    submitTask()
                                 }
                             }}
                             placeholder="What do you need to do?"
@@ -261,7 +271,10 @@ export function TaskList() {
                             </button>
                             <button
                                 type="button"
-                                onClick={handleSubmit}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    submitTask()
+                                }}
                                 className="px-4 py-1.5 text-xs font-medium rounded-[var(--radius-md)] bg-[var(--color-amber)] text-white hover:bg-[var(--color-amber-dark)] transition-colors"
                             >
                                 Add
@@ -271,9 +284,8 @@ export function TaskList() {
                 )}
             </AnimatePresence>
 
-            {/* Task list */}
             <div className="space-y-2">
-                <AnimatePresence mode="popLayout">
+                <AnimatePresence>
                     {day.tasks.map((task) => (
                         <TaskCard key={task.id} task={task} />
                     ))}
