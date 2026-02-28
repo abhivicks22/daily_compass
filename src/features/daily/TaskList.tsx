@@ -166,7 +166,10 @@ export function TaskList() {
 
     const submitTask = () => {
         const safeTitle = title.trim()
-        if (!safeTitle) return
+        if (!safeTitle) {
+            alert("Please type a task name first!")
+            return
+        }
 
         try {
             addTask({

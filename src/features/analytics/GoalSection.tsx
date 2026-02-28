@@ -15,7 +15,10 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
 
     const submitGoal = () => {
         const safeText = text.trim()
-        if (!safeText) return
+        if (!safeText) {
+            alert("Please type a goal description first!")
+            return
+        }
 
         try {
             addGoal(weekKey, {
