@@ -166,7 +166,11 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
                                     e.preventDefault()
                                     setShowForm(false)
                                 }}
-                                className="px-3 py-1.5 text-xs rounded text-[var(--color-text-secondary)] hover:bg-[var(--color-paper-dark)]"
+                                onPointerDown={(e) => {
+                                    e.preventDefault()
+                                    setShowForm(false)
+                                }}
+                                className="px-3 py-1.5 text-xs rounded text-[var(--color-text-secondary)] hover:bg-[var(--color-paper-dark)] relative z-10 pointer-events-auto touch-manipulation cursor-pointer"
                             >
                                 Cancel
                             </button>
@@ -176,7 +180,11 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
                                     e.preventDefault()
                                     submitGoal()
                                 }}
-                                className="px-4 py-1.5 text-xs font-medium rounded bg-[var(--color-amber)] text-white hover:bg-[var(--color-amber-dark)]"
+                                onPointerDown={(e) => {
+                                    e.preventDefault()
+                                    submitGoal()
+                                }}
+                                className="px-4 py-1.5 text-xs font-medium rounded bg-[var(--color-amber)] text-white hover:bg-[var(--color-amber-dark)] relative z-10 pointer-events-auto touch-manipulation cursor-pointer"
                             >
                                 Add goal
                             </button>
