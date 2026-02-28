@@ -1,0 +1,502 @@
+
+🧭
+
+DAILY COMPASS
+Product Requirements Document
+Personal Operating System for Executive Dysfunction
+
+Version 1.0  |  February 2026  |  4 Phases
+Built with neuroscience-backed principles for brains that know what to do but struggle to start.
+
+1. Executive Summary
+Daily Compass is a browser-based personal operating system designed specifically for people experiencing executive dysfunction. Unlike generic productivity apps that assume neurotypical function, every feature is grounded in neuroscience research on ADHD, dopamine regulation, and the knowing-doing gap.
+The core problem: Traditional productivity tools (Pomodoro, time-blocking, to-do lists) fail because they assume the user can initiate tasks at will. For brains with executive dysfunction, task initiation itself is the broken mechanism. Daily Compass works around this by providing external scaffolding, reducing decision overhead, building in self-compassion, and surfacing patterns that help users understand their own operating conditions.
+
+Target User: Adult with self-suspected or diagnosed ADHD / executive dysfunction, currently job-searching, managing multiple life domains (career, health, relationships, learning) under chronic stress.
+Platform: Progressive web app (React) built in Antigravity / Google environment. Browser-based, works on desktop and mobile.
+Data Persistence: Local storage with cloud sync capability. All data stays private.
+Design Philosophy: Low-friction, shame-free, pattern-revealing. Every interaction should take fewer decisions and less willpower than not using the app.
+
+2. Phase Overview & Timeline
+The app is divided into 4 phases, each building on the previous. Each phase is independently functional — you can ship and use Phase 1 while building Phase 2.
+
+Phase
+Name
+Core Value
+Est. Time
+Features
+Phase 1
+Foundation
+Daily logging + task tracking with status spectrum
+1–2 weeks
+12
+Phase 2
+Intelligence
+Weekly analysis + pattern detection + goals
+1–2 weeks
+10
+Phase 3
+Depth
+Journal, mood tracking, habit streaks, time-blocking
+2–3 weeks
+11
+Phase 4
+Power Tools
+Monthly trends, priority matrix, Pomodoro, export
+1–2 weeks
+9
+
+Total estimated effort: 5–9 weeks depending on complexity and polish.
+
+3. Phase 1: Foundation
+"Make it possible to log a day in under 2 minutes."
+
+Phase 1 delivers the minimum viable daily tracking system. The goal is to create a tool so low-friction that even on the worst executive dysfunction day, you can log something. Every design decision prioritizes reducing decisions and eliminating blank-page paralysis.
+3.1 Features
+Feature
+Description
+Priority
+Effort
+Morning Energy Check-in
+1–5 scale with emoji labels. Single tap. Shown immediately on app open. Sets the tone and calibrates expectations for the day.
+P0
+Small
+Task Creation
+Add tasks with: title (free text), category (dropdown from customizable list), priority quadrant (dropdown). Pre-populated category list with option to add custom.
+P0
+Medium
+Task Status Tracking
+5-state spectrum: Not Started ⬜ | In Progress ◐ | Done ✅ | Moved ➡️ | Dropped ✖️. Single-tap cycle through states. NO binary yes/no.
+P0
+Medium
+Time Spent per Task
+Manual input field (minutes). Optional — never required. Quick-entry buttons: 15m, 30m, 45m, 60m, Custom.
+P0
+Small
+Obstacle Log per Task
+Optional free-text field per task: "What got in the way?" Phrased externally (systemic) not internally (personal failure).
+P1
+Small
+Daily Wins Section
+Free-text area at top of day view. Prompt: "Name anything that took effort today, however small." Shown BEFORE obstacles.
+P0
+Small
+End-of-Day Reflection
+Free-text area with rotating self-compassion prompts. One new prompt per day from curated research-backed list.
+P0
+Small
+Implementation Intentions
+Morning section: 3–5 if-then slots. Format: "When [trigger], I will [action]." Pre-formatted, just fill in blanks.
+P1
+Medium
+Date Navigation
+Calendar picker + prev/next day arrows. Default to today. Visual indicator for days that have data.
+P0
+Small
+Custom Categories
+Add/remove/reorder activity categories. Persist across sessions. Default set provided.
+P1
+Small
+Persistent Storage
+All data saves automatically. Survives browser close, page refresh, device restart.
+P0
+Medium
+Responsive Layout
+Works on desktop (primary) and mobile (secondary). Sidebar navigation collapses on mobile.
+P1
+Medium
+3.2 Data Model (Phase 1)
+DayEntry object per date:
+	•	date (string, ISO format, primary key)
+	•	energy (integer, 1–5)
+	•	tasks (array of TaskObjects)
+	•	wins (string, free text)
+	•	reflection (string, free text)
+	•	intentions (array of { trigger: string, action: string })
+
+TaskObject:
+	•	id (string, unique identifier)
+	•	title (string)
+	•	category (string, from categories list)
+	•	status (enum: not_started | in_progress | done | moved | dropped)
+	•	timeSpent (integer, minutes)
+	•	obstacle (string, optional)
+	•	priority (enum: urgent_important | not_urgent_important | urgent_not_important | not_urgent_not_important)
+	•	createdAt (timestamp)
+3.3 UX Principles (Phase 1)
+	•	2-minute rule: A complete daily log (energy + 1 task + wins) must be achievable in under 2 minutes
+	•	No blank pages: Every section has a prompt, placeholder, or suggestion. Never present an empty text field without context
+	•	Wins before obstacles: Daily wins section always appears above/before any obstacle or failure logging
+	•	Status spectrum over binary: "Moved to tomorrow" and "Deliberately dropped" are valid, non-shameful outcomes
+	•	Compassion prompts rotate daily: Never repeat the same prompt two days in a row
+	•	Auto-save everything: No save button. Every keystroke and tap persists immediately
+3.4 Acceptance Criteria (Phase 1)
+	•	User can open the app and see today’s date with the energy check-in prominently displayed
+	•	User can rate energy with a single tap (1–5 scale)
+	•	User can add a task with title, category, and priority in under 30 seconds
+	•	User can cycle task status with a single tap through all 5 states
+	•	User can log time spent via quick buttons or manual entry
+	•	User can navigate between days and see previously saved data
+	•	User can write daily wins and end-of-day reflection
+	•	User can add/remove custom categories that persist across sessions
+	•	All data survives page refresh and browser restart
+	•	App loads in under 2 seconds on a standard connection
+
+4. Phase 2: Intelligence
+"Turn raw data into self-knowledge."
+
+Phase 2 transforms daily logs into actionable insights. The weekly analysis is the heart of this phase — it’s what separates mindless logging from genuine self-understanding. The research shows that self-monitoring reduces off-task behavior by ~42%, but only when combined with pattern recognition and non-judgmental review.
+4.1 Features
+Feature
+Description
+Priority
+Effort
+Weekly Dashboard
+Auto-generated summary of the current week: total tasks, completion rate, total time invested, average energy, most productive day, most common category.
+P0
+Large
+Completion Rate by Category
+Bar chart showing done/total ratio per category. Reveals which areas are thriving vs. being neglected.
+P0
+Medium
+Energy vs. Productivity Correlation
+Line/scatter chart overlaying daily energy ratings with task completion counts. Reveals: "On high-energy days I complete 4x more tasks."
+P0
+Medium
+Most Common Obstacles
+Aggregated obstacle text, frequency-ranked. Surfaces: "Phone distraction appeared 12 times this week." Uses keyword matching.
+P1
+Medium
+Goal Setting (Weekly)
+Set 1–3 goals per week with measurable targets. E.g., "Complete 5 job applications" or "Exercise 4 days." Progress bar auto-calculates from task data.
+P0
+Medium
+Goal Setting (Monthly)
+Same as weekly but at month scale. Links to weekly goals for cascading accountability.
+P1
+Medium
+Weekly Pain Points Section
+Dedicated free-text area: "What hurt this week — mentally, physically, emotionally?" Separate from task obstacles. For bigger-picture reflection.
+P0
+Small
+Weekly Wins Summary
+Auto-aggregated from daily wins entries + manual additions. Shows all wins in one view to counter negativity bias.
+P0
+Small
+Implementation Intentions Review
+Which if-then plans were used? Which ones fired? Self-rated effectiveness. Helps refine the intentions over time.
+P1
+Medium
+Week-over-Week Comparison
+Side-by-side metrics: this week vs. last week. Completion rate trend, energy trend, time invested trend. Simple arrows (up/down/flat).
+P1
+Medium
+4.2 Analytics Engine Design
+All analytics are computed client-side from stored DayEntry objects. No server-side processing required.
+
+Key Computed Metrics:
+	•	Completion Rate = tasks with status “done” / total tasks created (exclude “dropped” from denominator if user prefers)
+	•	Productive Time = sum of timeSpent across all tasks with status “done” or “in_progress”
+	•	Category Distribution = percentage of total tasks per category
+	•	Energy-Productivity Correlation = Pearson correlation coefficient between daily energy and daily completion count
+	•	Obstacle Frequency = tokenize obstacle strings, count recurring keywords/phrases, rank by frequency
+	•	Goal Progress = matched tasks (by category or tag) / goal target
+	•	Streak Calculation = consecutive days where at least 1 task was completed
+4.3 Weekly Review Flow
+The weekly review should follow this exact sequence (research-backed: wins before losses, data before judgment):
+
+	•	Step 1 — Wins First: Display all daily wins aggregated. User adds any they missed.
+	•	Step 2 — Data Review: Show charts: completion rate, category breakdown, energy correlation.
+	•	Step 3 — Obstacle Patterns: Show most common obstacles. Prompt: "Do you see a pattern?"
+	•	Step 4 — Pain Points: Free-text: what hurt this week mentally/physically/emotionally.
+	•	Step 5 — Intentions Review: Which implementation intentions worked? Which didn’t?
+	•	Step 6 — Next Week Setup: Set 1–3 goals. Write new implementation intentions.
+	•	Step 7 — Self-Compassion Close: Prompt: "What would you say to a friend who had this week?"
+4.4 Acceptance Criteria (Phase 2)
+	•	Weekly dashboard loads automatically showing current week’s data
+	•	At least 3 chart types render correctly with real data from Phase 1 entries
+	•	User can set weekly goals and see progress bars update as tasks are completed
+	•	Obstacle frequency ranking correctly identifies top 3 recurring blockers
+	•	Weekly review can be completed in under 15 minutes following the guided flow
+	•	Week-over-week comparison shows directional trends (up/down/flat) for key metrics
+	•	Empty weeks show encouraging messaging, not error states
+
+5. Phase 3: Depth
+"Add the layers that make this a complete personal OS."
+
+Phase 3 adds the features that transform Daily Compass from a task tracker into a holistic self-management system. These features address the emotional, behavioral, and temporal dimensions that the research identifies as critical for managing executive dysfunction.
+5.1 Features
+Feature
+Description
+Priority
+Effort
+Mood Tracker (Multi-daily)
+Log mood multiple times per day: 1–5 scale with emoji + optional note + timestamp. Quick-tap entry. Shows mood timeline for the day.
+P0
+Medium
+Mood Patterns in Analytics
+Mood trends over time (weekly/monthly). Correlation with energy, productivity, and specific categories. "Your mood dips on days with zero exercise."
+P1
+Medium
+Journal / Free-Writing
+Dedicated long-form writing space. Separate from daily reflection. Date-stamped entries. Searchable. No prompts required (but available).
+P0
+Medium
+Journal Prompts Library
+Curated prompts for days when starting is hard. Research-backed: gratitude, cognitive reframing, future-self visualization, obstacle pre-mortem.
+P1
+Small
+Habit Tracker with Streaks
+Define recurring habits (e.g., "Exercise", "No phone before 9 AM", "Read 20 min"). Daily check-off. Visual streak counter with current + longest streak.
+P0
+Large
+Habit Streak Visualization
+GitHub-style heatmap grid showing habit completion over weeks/months. Color intensity = consistency. Highly motivating visual.
+P1
+Medium
+Daily Schedule / Time-Blocking
+Visual timeline (6 AM–10 PM). Drag-and-drop time blocks. Assign tasks to specific time slots. Not a rigid calendar — a visual plan.
+P0
+Large
+Schedule vs. Reality View
+Side-by-side: what you planned vs. what you actually did. Non-judgmental. Helps calibrate future time estimates.
+P1
+Large
+Self-Compassion Engine
+Context-aware prompts that respond to user’s data. Low-energy day + zero completions triggers: "Hard days happen. You’re still here." NOT generic motivational quotes.
+P1
+Medium
+Weekly Pain Points Archive
+Searchable history of all weekly pain points. Pattern detection across weeks: "Loneliness appeared in 6 of last 8 weeks."
+P1
+Small
+Tag System for Tasks
+Add custom tags to tasks beyond categories. Enables: #interview, #urgent, #learning, #health. Searchable and filterable.
+P1
+Medium
+5.2 Habit Tracker Design
+HabitObject:
+	•	id (string, unique)
+	•	name (string, e.g., "Morning walk")
+	•	frequency (enum: daily | weekdays | custom_days)
+	•	customDays (array of day indices if frequency = custom_days)
+	•	history (array of date strings where habit was completed)
+	•	streak (integer, current consecutive days)
+	•	longestStreak (integer, all-time best)
+	•	createdAt (timestamp)
+	•	color (string, for visual differentiation)
+
+Streak Logic:
+	•	Current streak = count consecutive days backward from today (or yesterday if today isn’t checked yet)
+	•	A missed day resets the streak to 0
+	•	Longest streak updates whenever current streak exceeds it
+	•	Rest days (if frequency = weekdays) don’t break the streak
+	•	Visual: fire emoji at 7+ days, star at 30+ days, trophy at 90+ days
+5.3 Time-Blocking Design
+The time-blocking view is a visual planning tool, NOT a rigid scheduler. Key design decisions:
+	•	Granularity: 30-minute blocks (not 15 — too granular for executive dysfunction; not 60 — too coarse for varied tasks)
+	•	Visual: Vertical timeline from 6 AM to 10 PM. Color-coded by category. Tasks can be dragged onto time slots.
+	•	Flexibility: Blocks can be resized, moved, and deleted easily. Unscheduled tasks remain in a side panel.
+	•	No alarms: No notifications or alerts. This is a visual plan, not a constraint system.
+	•	Buffer time: Auto-suggest 15-min buffers between blocks (user can disable). Research shows ADHD brains underestimate transition time.
+5.4 Acceptance Criteria (Phase 3)
+	•	User can log mood with a single tap at any time; multiple entries per day are visible on a timeline
+	•	Habit tracker shows current streak and longest streak for each habit
+	•	Heatmap visualization correctly renders 12+ weeks of habit data
+	•	Journal entries are date-stamped, searchable, and persist indefinitely
+	•	Time-blocking view allows creating, resizing, and moving blocks via mouse/touch
+	•	Self-compassion prompts are contextually appropriate (not generic)
+	•	Tags can be added to tasks and used to filter views across all data
+
+6. Phase 4: Power Tools
+"The advanced features that make power users never leave."
+
+Phase 4 adds the analytical depth and utility features that complete the system. These are features that become valuable once you have 4+ weeks of data and have established the daily logging habit.
+6.1 Features
+Feature
+Description
+Priority
+Effort
+Monthly Review & Trends
+Auto-generated monthly report: completion trends, energy patterns, category shifts, goal achievement rates, mood trajectory. Month-over-month comparison.
+P0
+Large
+Monthly Trends Charts
+Line charts for: completion rate over weeks, energy over weeks, time invested over weeks, mood over weeks. Trendlines with direction indicators.
+P0
+Medium
+Priority Matrix View
+Eisenhower matrix (4-quadrant grid). Tasks auto-placed by priority field. Drag between quadrants. Visual count per quadrant.
+P0
+Medium
+Priority Matrix Analytics
+"You have 8 tasks in Urgent+Important and 0 in Not-Urgent+Important. This indicates reactive mode." Auto-generated insight text.
+P1
+Medium
+Pomodoro Timer
+Built-in 25/5 timer. Tracks sessions completed per day. Optional: link timer sessions to specific tasks. Session count visible in daily view.
+P0
+Medium
+Pomodoro Statistics
+Sessions per day/week chart. Average focus duration. Correlation with task completion. "You complete 2.3x more tasks on days with 4+ Pomodoro sessions."
+P1
+Medium
+CSV Export
+Download all data as structured CSV. Columns: date, energy, task title, category, status, time spent, obstacle, wins, reflection. One-click export.
+P0
+Medium
+PDF Report Export
+Generate formatted weekly or monthly report as PDF. Includes charts, metrics, and reflection text. Shareable with therapist/coach if desired.
+P1
+Large
+Data Backup/Restore
+Export all data as JSON backup. Import from JSON to restore. Prevents data loss when switching devices or clearing browser.
+P1
+Small
+6.2 Monthly Review Design
+The monthly review aggregates 4–5 weekly reviews and provides a higher-altitude view. It answers the question: "Am I trending in the right direction?"
+
+Monthly Report Sections:
+	•	Executive Summary: Total tasks completed, average daily completion rate, total productive hours, average energy, dominant mood
+	•	Trend Charts: Week-by-week lines for completion rate, energy, productive time, mood average
+	•	Category Evolution: How time allocation shifted across the month. "Coding went from 15% to 35% of your time."
+	•	Goal Achievement: Monthly goals vs. actuals with percentage achieved
+	•	Obstacle Patterns: Top 5 obstacles across the entire month with frequency counts
+	•	Habit Consistency: Average habit completion rate per habit. Streak milestones achieved
+	•	Pain Points Archive: All weekly pain points collected in one view for pattern recognition
+	•	Month-End Reflection: Free-text: "What did this month teach me?" and "What’s the one thing I want to change next month?"
+6.3 Priority Matrix Design
+The Eisenhower matrix visualization should be interactive and insightful:
+
+🔴 DO FIRST
+Urgent + Important
+Interview prep, deadlines, crises
+🟡 SCHEDULE
+Not Urgent + Important
+Skill learning, exercise, relationships
+🟠 DELEGATE/MINIMIZE
+Urgent + Not Important
+Admin tasks, interruptions
+⚪ ELIMINATE
+Not Urgent + Not Important
+Doomscrolling, busywork
+
+Tasks auto-populate into quadrants based on their priority field from Phase 1. Users can drag tasks between quadrants to re-prioritize. The app generates insights like "72% of your tasks are in Quadrant 1 (Do First). Consider whether some could move to Quadrant 2 (Schedule) to reduce urgency-driven stress."
+6.4 Acceptance Criteria (Phase 4)
+	•	Monthly report generates automatically with at least 4 weeks of data
+	•	Trend charts render correctly with real data points from stored entries
+	•	Priority matrix displays tasks in correct quadrants and supports drag-and-drop
+	•	Pomodoro timer counts down correctly, tracks sessions, and auto-switches between work/break
+	•	CSV export produces valid, openable file with all historical data
+	•	Data backup/restore works: export JSON, clear data, import JSON, verify all data restored
+	•	App remains performant with 3+ months of daily data (< 2 second load time)
+
+7. Technical Architecture
+7.1 Tech Stack
+	•	Framework: React 18+ (functional components, hooks only)
+	•	Styling: Tailwind CSS or CSS-in-JS (styled-components). Design system with CSS variables for theming.
+	•	State Management: React Context + useReducer for global state. No Redux needed at this scale.
+	•	Storage: IndexedDB via Dexie.js (better than localStorage for structured data, handles large datasets). Fallback to localStorage for simple values.
+	•	Charts: Recharts (React-native, composable, responsive). Alternatives: Chart.js via react-chartjs-2.
+	•	Date Handling: date-fns (tree-shakeable, no moment.js).
+	•	Drag & Drop: @dnd-kit (Phase 3 time-blocking, Phase 4 priority matrix).
+	•	Export: papaparse (CSV), jsPDF + html2canvas (PDF).
+	•	Build: Vite (fast dev server, optimized builds).
+7.2 Data Architecture
+All data is organized by date as the primary key. The storage schema:
+
+	•	days:{date} → DayEntry object (energy, tasks, wins, reflection, intentions, schedule, moods)
+	•	habits → Array of HabitObjects with history arrays
+	•	goals:{weekKey} → Array of weekly GoalObjects
+	•	goals:monthly:{monthKey} → Array of monthly GoalObjects
+	•	journal:{date} → JournalEntry object (content, prompts used, tags)
+	•	weekly-review:{weekKey} → WeeklyReview object (pain points, reflection, intention review)
+	•	monthly-review:{monthKey} → MonthlyReview object (reflection, goals review)
+	•	settings → Categories, theme preference, default view, habit definitions
+7.3 Performance Requirements
+	•	Initial load: < 2 seconds on 4G connection
+	•	Navigation between views: < 200ms
+	•	Auto-save latency: < 100ms (debounced at 500ms)
+	•	Chart rendering with 90 days of data: < 1 second
+	•	Total storage footprint for 1 year of daily use: < 50MB
+	•	Works offline after first load (PWA service worker)
+
+8. Design System & UX Guidelines
+8.1 Color Palette
+Name
+Hex
+Usage
+Rationale
+Deep Navy
+#2D3142
+Primary text, sidebar, headers
+Grounding, non-aggressive dark
+Warm Amber
+#E8985E
+Accents, active states, CTAs
+Energizing without anxiety
+Sage Green
+#7CB589
+Success, completion, streaks
+Calming achievement signal
+Soft Blue
+#6BA3D6
+Information, moved tasks
+Neutral, non-judgmental
+Muted Rose
+#D4726A
+Alerts, dropped, urgent
+Warm red, not alarming
+Warm Paper
+#FAF7F2
+Background
+Softer than white, reduces eye strain
+8.2 Typography
+	•	Headings: Fraunces (serif, variable weight) — warm, approachable, distinctive
+	•	Body: Nunito Sans (sans-serif) — friendly, highly readable, good for data
+	•	Monospace: JetBrains Mono — for timer display and data-heavy sections
+	•	Scale: 14px base, 1.5 line height, 16px for input fields
+8.3 Executive Dysfunction UX Rules
+These rules override standard UX practices where they conflict. They are derived directly from the neuroscience research:
+
+	•	Rule 1 — Fewer decisions, always. Default selections for everything. Pre-populated dropdowns. Quick-entry buttons over free text wherever possible.
+	•	Rule 2 — No blank pages. Every empty state has a prompt, suggestion, or example. "Add your first task" button, not an empty list.
+	•	Rule 3 — Celebrate completion, don’t punish incompletion. Green checkmarks animate. Streak counters celebrate. Incomplete tasks are neutral gray, never red.
+	•	Rule 4 — Progressive disclosure. Show the minimum viable interface first. Advanced features reveal on interaction. Don’t overwhelm.
+	•	Rule 5 — Undo everything. Accidental deletion, wrong status, mistaken entry — everything is reversible. No “Are you sure?” dialogs (they add decisions).
+	•	Rule 6 — Yesterday was yesterday. Today’s view starts fresh. No carry-forward of undone tasks unless the user explicitly chose “Moved.”
+	•	Rule 7 — Shame audit every feature. Before shipping any feature, ask: "Could this make the user feel bad about themselves?" If yes, redesign.
+	•	Rule 8 — 2-minute entry ceiling. If the minimum daily interaction takes more than 2 minutes, the feature is too complex.
+
+9. Risks & Mitigations
+Risk
+Impact
+Mitigation
+App itself becomes another abandoned tool
+User builds it, uses it for 3 days, drops it — reinforcing shame cycle
+Phase 1 is intentionally minimal. 2-minute daily ceiling. Ship and USE Phase 1 for 2 weeks before building Phase 2.
+Feature creep during build
+Scope expands, nothing ships, another incomplete project
+Strict phase gates. Each phase is independently shippable. Don’t start Phase N+1 until Phase N is in daily use.
+Data loss (browser storage cleared)
+Weeks of data gone, devastating for motivation
+Phase 4 backup/export. Consider cloud sync earlier if storage concerns arise.
+Over-tracking triggers obsession
+Tracking becomes the goal instead of the means; new source of anxiety
+Self-compassion engine. Weekly prompt: "Is this tool serving you, or are you serving it?"
+Performance degrades with large datasets
+App becomes slow after months of use, user abandons
+IndexedDB (not localStorage). Lazy loading for charts. Pagination for historical views.
+
+10. Success Criteria
+The app is successful if, after 30 days of use:
+
+	•	Usage: The user logs at least 5 out of 7 days per week (71% consistency)
+	•	Insight: The user can name their top 3 obstacles and best time of day for focus
+	•	Emotional: The user reports feeling less shame about incomplete tasks (spectrum tracking)
+	•	Productivity: Weekly completion rate shows an upward trend (even if small)
+	•	Self-knowledge: The user makes at least one behavioral change based on data from the app
+	•	Sustainability: Daily logging still takes under 2 minutes
+
+🧭 Build Phase 1. Use it for 2 weeks. Then build Phase 2.
+The best system is the one you actually use.

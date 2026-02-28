@@ -7,9 +7,10 @@ import { ObstacleRanking } from './ObstacleRanking'
 import { WeekOverWeek } from './WeekOverWeek'
 import { GoalSection } from './GoalSection'
 import { WeeklyWins } from './WeeklyWins'
+import { WeeklyTaskPerformance } from './WeeklyTaskPerformance'
 import { motion } from 'framer-motion'
 import { format, startOfWeek, endOfWeek, addWeeks, subWeeks } from 'date-fns'
-import { ChevronLeft, ChevronRight, CalendarDays, Zap, CheckCircle2, Clock, TrendingUp } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CheckCircle2, Clock, TrendingUp, Zap } from 'lucide-react'
 
 export function WeeklyDashboard() {
     const [weekDate, setWeekDate] = useState(() => new Date())
@@ -124,6 +125,7 @@ export function WeeklyDashboard() {
                     <EnergyCorrelation stats={stats} />
                     <WeeklyWins days={stats.days} />
                     <GoalSection weekKey={getWeekKey(weekDate)} />
+                    <WeeklyTaskPerformance stats={stats} />
                     <ObstacleRanking stats={stats} />
 
                     {/* Week-over-week */}

@@ -23,23 +23,24 @@ function TaskCard({ task }: { task: TaskObject }) {
         >
             {/* Main row */}
             <div className="flex items-center gap-3 p-3.5">
-                {/* Status toggle */}
-                <motion.button
-                    whileTap={{ scale: 0.85 }}
-                    onClick={() => cycleTaskStatus(task.id)}
-                    className={`
-            w-9 h-9 flex-shrink-0 rounded-[var(--radius-md)] flex items-center justify-center text-lg
-            transition-all duration-150 cursor-pointer border-2
-            ${task.status === 'done' ? 'animate-check-pop' : ''}
-          `}
-                    style={{
-                        borderColor: statusConfig.color,
-                        backgroundColor: `${statusConfig.color}20`,
+                {/* Status toggle (Checkbox style) */}
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        const targetStatus = task.status === 'done' ? 'not_started' : 'done'
+                        updateTask(task.id, { status: targetStatus })
                     }}
-                    title={`Status: ${statusConfig.label} (click to change)`}
+                    className={`
+            w-6 h-6 flex-shrink-0 rounded-full flex items-center justify-center text-xs
+            transition-all duration-150 cursor-pointer border-2
+            ${task.status === 'done'
+                            ? 'bg-[var(--color-green)] border-[var(--color-green)] animate-check-pop'
+                            : 'bg-transparent border-[var(--color-text-muted)] hover:border-[var(--color-navy)]'}
+          `}
+                    title={`Mark as ${task.status === 'done' ? 'incomplete' : 'complete'}`}
                 >
-                    {statusConfig.icon}
-                </motion.button>
+                    {task.status === 'done' && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
+                </button>
 
                 {/* Title & meta */}
                 <div className="flex-1 min-w-0">
@@ -245,7 +246,10 @@ export function TaskList() {
                         <div className="flex justify-end gap-2">
                             <button
                                 type="button"
-                                onClick={() => setShowForm(false)}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    setShowForm(false)
+                                }}
                                 className="px-3 py-1.5 text-xs rounded-[var(--radius-md)] text-[var(--color-text-secondary)] hover:bg-[var(--color-paper-dark)] transition-colors"
                             >
                                 Cancel

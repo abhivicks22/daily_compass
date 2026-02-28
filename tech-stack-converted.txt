@@ -1,0 +1,415 @@
+
+🛠️
+
+DAILY COMPASS
+Tech Stack & Enhancement Roadmap
+Companion to PRD v1.0 • Optimized for Google Antigravity
+
+February 2026
+
+1. Core Tech Stack
+This is the definitive technology stack for building Daily Compass in Google Antigravity. Each choice is optimized for: rapid agentic development, executive-dysfunction-friendly UX, offline capability, and progressive enhancement across all 4 phases.
+1.1 Framework & Runtime
+Layer
+Technology
+Why This Choice
+Framework
+React 18+
+Functional components + hooks only. Antigravity has excellent React support via its Gemini agents. Component-based architecture maps perfectly to our modular phase structure.
+Language
+TypeScript
+Type safety catches bugs early. Antigravity agents produce better TypeScript than JavaScript because types constrain generation. Critical for complex data models (DayEntry, HabitObject, GoalObject).
+Build Tool
+Vite 6+
+Sub-second HMR (hot module reload). Instant dev server startup. Tree-shaking for minimal bundle. Antigravity can scaffold Vite projects natively.
+Package Manager
+pnpm
+Faster installs, strict dependency resolution, disk-efficient. Better than npm for projects with many dependencies.
+1.2 Styling & Design System
+Layer
+Technology
+Why This Choice
+CSS Framework
+Tailwind CSS 4
+Utility-first approach means Antigravity agents can style components inline without context-switching to separate CSS files. JIT compilation = zero unused CSS.
+Component Library
+shadcn/ui
+Copy-paste components (not npm dependency). Full control over styling. Pre-built: buttons, dialogs, dropdowns, tabs, tooltips, calendars, sliders. Saves 60%+ of UI build time.
+Icons
+Lucide React
+Clean, consistent icon set. Tree-shakeable (only imports used icons). Works perfectly with shadcn/ui.
+Animations
+Framer Motion
+Declarative animations for React. Layout animations, gesture support, exit animations. Makes status transitions and streak celebrations feel alive.
+Fonts
+Google Fonts (Fraunces + Nunito Sans + JetBrains Mono)
+Fraunces for headings (warm, serif). Nunito Sans for body (friendly, readable). JetBrains Mono for timer/data. Variable fonts for performance.
+1.3 State Management & Storage
+Layer
+Technology
+Why This Choice
+State Management
+Zustand
+Minimal boilerplate (vs Context+useReducer). Built-in middleware for persistence. DevTools support. Perfect for medium-complexity apps. One store per domain (days, habits, goals, settings).
+Persistent Storage
+Dexie.js (IndexedDB)
+Structured database in the browser. Handles 100K+ records without lag. Query by date ranges. Better than localStorage for complex data (arrays, nested objects). Supports transactions.
+Storage Fallback
+localStorage
+Simple key-value pairs only: settings, theme preference, last-viewed date. Never for task/habit data.
+Sync Layer (Enhancement)
+Firebase / Supabase
+Optional cloud sync for cross-device access. See Enhancements section. Not required for Phase 1–4.
+1.4 Data, Charts & Utilities
+Layer
+Technology
+Why This Choice
+Charts
+Recharts
+React-native composable charts. Bar, Line, Pie, Radar, Area. Responsive. Customizable tooltips. Lighter than Chart.js. Used for weekly/monthly dashboards.
+Date Handling
+date-fns
+Tree-shakeable (import only what you use). Immutable. Covers: week calculations, date ranges, formatting, relative time. No moment.js bloat.
+Drag & Drop
+@dnd-kit/core + @dnd-kit/sortable
+Modern, accessible drag-and-drop for React. Phase 3: time-block rearrangement. Phase 4: priority matrix drag between quadrants. Touch + mouse support.
+CSV Export
+Papaparse
+Robust CSV generation and parsing. Handles edge cases (commas in text, Unicode). One-click export of all historical data.
+PDF Export
+jsPDF + html2canvas
+Generates PDF reports from rendered HTML. Charts render as images. Used for weekly/monthly report sharing.
+Form Handling
+React Hook Form + Zod
+Minimal re-renders. Schema validation with Zod (same schemas for storage + forms). Fast task creation forms.
+Routing
+React Router v7
+Client-side routing: /today, /week, /month, /journal, /habits, /settings. URL-based navigation for bookmarkability.
+1.5 Development & Quality
+Layer
+Technology
+Why This Choice
+IDE
+Google Antigravity
+Agent-first IDE. Gemini 3 Pro agents can scaffold components, write tests, debug visually via browser sub-agents. Use Implementation Plans for each phase.
+Linting
+ESLint + Prettier
+Consistent code formatting. Antigravity agents follow lint rules when generating code. Auto-fix on save.
+Testing
+Vitest + React Testing Library
+Vitest is Vite-native (fast). RTL tests user behavior not implementation. Antigravity browser agents can also visually verify UI.
+PWA
+vite-plugin-pwa
+Service worker for offline access. Installable on mobile/desktop. Auto-caching of app shell. Critical for reliability.
+
+2. Project Setup Commands
+Copy these into Antigravity’s terminal or give them as a prompt to the agent.
+Phase 1 Setup
+# Scaffold project
+pnpm create vite@latest daily-compass -- --template react-ts
+cd daily-compass
+
+# Core dependencies
+pnpm add react-router-dom zustand dexie dexie-react-hooks date-fns
+pnpm add recharts lucide-react framer-motion
+pnpm add react-hook-form @hookform/resolvers zod
+
+# Tailwind + shadcn/ui
+pnpm add -D tailwindcss @tailwindcss/vite
+pnpm dlx shadcn@latest init
+
+# Dev tools
+pnpm add -D vitest @testing-library/react @testing-library/jest-dom
+pnpm add -D eslint prettier eslint-config-prettier
+Phase 3 Additions
+pnpm add @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
+Phase 4 Additions
+pnpm add papaparse jspdf html2canvas
+pnpm add -D vite-plugin-pwa
+
+3. Recommended Folder Structure
+Feature-based architecture. Each feature is self-contained with its own components, hooks, and types.
+
+daily-compass/
+├── src/
+│   ├── app/                     # App shell, routing, layout
+│   │   ├── App.tsx
+│   │   ├── Router.tsx
+│   │   └── Layout.tsx           # Sidebar + main content
+│   ├── features/
+│   │   ├── daily/               # Phase 1: Daily logging
+│   │   │   ├── DailyView.tsx    # Main day view
+│   │   │   ├── EnergyCheckin.tsx
+│   │   │   ├── TaskList.tsx
+│   │   │   ├── TaskCard.tsx
+│   │   │   ├── WinsSection.tsx
+│   │   │   ├── ReflectionSection.tsx
+│   │   │   └── IntentionsSection.tsx
+│   │   ├── analytics/           # Phase 2: Weekly dashboard
+│   │   │   ├── WeeklyDashboard.tsx
+│   │   │   ├── CompletionChart.tsx
+│   │   │   ├── EnergyCorrelation.tsx
+│   │   │   ├── ObstacleRanking.tsx
+│   │   │   └── WeeklyReview.tsx
+│   │   ├── goals/               # Phase 2: Goal tracking
+│   │   ├── journal/             # Phase 3: Free-writing
+│   │   ├── habits/              # Phase 3: Habit streaks
+│   │   ├── mood/                # Phase 3: Mood tracking
+│   │   ├── schedule/            # Phase 3: Time-blocking
+│   │   ├── matrix/              # Phase 4: Priority matrix
+│   │   ├── timer/               # Phase 4: Pomodoro
+│   │   └── monthly/             # Phase 4: Monthly review
+│   ├── stores/                  # Zustand stores
+│   │   ├── useDayStore.ts
+│   │   ├── useHabitStore.ts
+│   │   ├── useGoalStore.ts
+│   │   └── useSettingsStore.ts
+│   ├── db/                      # Dexie database setup
+│   │   ├── database.ts          # Schema + migrations
+│   │   └── seed.ts              # Default data
+│   ├── hooks/                   # Shared custom hooks
+│   ├── lib/                     # Utilities, date helpers
+│   ├── types/                   # TypeScript interfaces
+│   │   ├── day.ts
+│   │   ├── task.ts
+│   │   ├── habit.ts
+│   │   └── goal.ts
+│   ├── components/              # Shared UI components
+│   │   ├── ui/                  # shadcn/ui components
+│   │   ├── Sidebar.tsx
+│   │   ├── DateNavigator.tsx
+│   │   └── CompassionPrompt.tsx
+│   └── constants/               # Compassion prompts, defaults
+├── public/
+├── index.html
+├── vite.config.ts
+├── tailwind.config.ts
+├── tsconfig.json
+└── package.json
+
+4. Antigravity-Specific Tips
+Antigravity is an agent-first IDE — it works best when you give it structured, phase-based prompts rather than vague requests. Here’s how to maximize it for Daily Compass.
+4.1 Prompting Strategy
+	•	Always request an Implementation Plan first: Before any code, say "Generate an implementation plan artifact for Phase 1 features. List folder structure, component tree, data model, and dependencies. Ask for approval before coding."
+	•	One feature per agent task: Don’t ask for "build the entire daily view." Instead: "Build the EnergyCheckin component that shows a 1–5 emoji scale, stores the selection in Zustand, and persists to Dexie."
+	•	Use the browser sub-agent for testing: After building a component, tell the agent: "Launch the app in the browser, navigate to /today, test the energy checkin by clicking each level, and verify it persists on page refresh."
+	•	Save reusable patterns to Knowledge Base: After the agent builds a good component pattern, tell it: "Save this component pattern (Dexie persistence + Zustand store + shadcn/ui) to the knowledge base for reuse."
+	•	Use Artifacts for review: Ask the agent to generate screenshot artifacts of each component. Review them like a designer would review mockups. Leave inline comments to iterate.
+4.2 Agent Model Selection
+Task Type
+Best Model
+Why
+Architecture & planning
+Gemini 3 Pro (Planning)
+Deep reasoning for data models, component relationships, state flow
+Component building
+Gemini 3 Pro (Fast)
+Rapid code generation with good quality
+Complex logic (analytics engine)
+Claude Sonnet 4.5
+Strong at algorithm design, data transformation, statistical calculations
+UI polish & animations
+Gemini 3 Pro (Fast)
+Quick iteration on visual details, Tailwind classes, Framer Motion configs
+Debugging & testing
+Browser sub-agent
+Visual verification, interaction testing, responsive checks
+
+5. Enhancement Roadmap (Post-Phase 4)
+These are features beyond the core PRD that could significantly increase the app’s value. Organized by impact and complexity.
+5.1 Tier 1: High Impact, Medium Effort
+🔄 Cloud Sync (Cross-Device Access)
+What
+Sync all data across phone/laptop/tablet via cloud backend. Log on phone in the morning, review on laptop in the evening.
+Tech
+Supabase (PostgreSQL + real-time subscriptions + auth + free tier). Alternative: Firebase Firestore.
+Why Supabase
+Open-source, PostgreSQL under the hood (real SQL queries for analytics), generous free tier (500MB DB, 50K active users), real-time sync, built-in auth (Google sign-in).
+Effort
+1–2 weeks. Replace Dexie reads/writes with Supabase client calls. Add conflict resolution (last-write-wins is fine for single-user).
+Impact
+★★★★★ — Removes the #1 risk of browser data loss. Enables mobile logging.
+
+🤖 AI-Powered Weekly Insights (Gemini API)
+What
+Feed your weekly data to Gemini and get personalized analysis: pattern detection, specific suggestions, obstacle clustering, and motivational insights that understand YOUR data.
+Tech
+Gemini API (gemini-2.0-flash) via Google AI Studio. Structured output mode for consistent JSON responses.
+How It Works
+Send weekly summary JSON (energy array, task completion rates, obstacles, mood data) to Gemini with a structured prompt. Get back: top 3 patterns noticed, 2 specific suggestions, 1 encouragement based on actual wins.
+Example Output
+"Your completion rate was 73% on high-energy days vs 18% on low-energy days. Consider front-loading your hardest tasks to mornings when your energy rating was 4+. You completed 5 job applications this week — that’s your best week in a month."
+Effort
+3–5 days. Single API call per weekly review. Cost: ~$0.01 per review (negligible).
+Impact
+★★★★★ — Transforms raw data into actionable intelligence. Like having a personal coach.
+
+📱 Progressive Web App (Installable Mobile)
+What
+Install Daily Compass on your phone’s home screen like a native app. Works offline. Push notification reminders.
+Tech
+vite-plugin-pwa + Workbox. Service worker caches app shell + IndexedDB data.
+Key Feature
+Evening reminder notification: "Ready for your 2-minute check-in?" Morning notification: "Rate your energy to start the day." Both respect your boundaries — gentle nudges only.
+Effort
+3–5 days. Manifest file + service worker + notification permission flow.
+Impact
+★★★★ — Mobile access = actually use it daily. Notifications = external scaffolding for executive dysfunction.
+
+5.2 Tier 2: High Impact, Higher Effort
+🎮 Gamification & Rewards System
+What
+XP points for task completion. Levels that unlock themes/colors. Achievement badges ("7-day streak!", "First weekly review!", "50 tasks completed!"). Dopamine-friendly reward loops.
+Why
+Research shows gamification elements activate dopamine pathways that are underactive in ADHD. The variable reward schedule (random badges, level-up surprises) mirrors what makes social media addictive — but directed at productive behavior.
+Effort
+1–2 weeks. XP calculation engine + achievement definitions + unlock animations.
+Impact
+★★★★ — Turns the dopamine deficit into an advantage. Makes the app itself rewarding to use.
+
+📊 Smart Obstacle Clustering (NLP)
+What
+Instead of keyword matching for obstacles, use embeddings to cluster similar obstacles: "got distracted by phone", "scrolled reels", "couldn’t stop watching shorts" all group as "Phone/Social Media Distraction".
+Tech
+Gemini Embedding API or local text-embedding via TF.js. Cluster with k-means or DBSCAN.
+Effort
+1 week. Embed obstacle strings, cluster, auto-label groups.
+Impact
+★★★ — Surfaces deeper patterns than simple keyword matching.
+
+📅 Google Calendar Integration
+What
+Import Google Calendar events into the time-blocking view. See interviews, meetings, and commitments alongside planned work blocks. Export time-blocks back to Calendar.
+Tech
+Google Calendar API + OAuth 2.0. Read/write access to primary calendar.
+Effort
+1–2 weeks. OAuth flow + API integration + bidirectional sync logic.
+Impact
+★★★★ — Single source of truth for your day. No context-switching between calendar and compass.
+
+5.3 Tier 3: Future Vision
+Enhancement
+Description
+Effort
+Impact
+Voice Logging
+"Hey Compass, I just finished 30 min of coding." Whisper API transcription + intent parsing. Log tasks by voice.
+2–3 weeks
+★★★★
+Accountability Partner Mode
+Share weekly reports with a trusted friend/spouse. They see your wins and progress. Optional: they can send encouragement within the app.
+2 weeks
+★★★★
+Focusmate Integration
+One-click link to schedule a Focusmate body-doubling session from any task. Pre-fill the task description.
+2–3 days
+★★★
+Spaced Repetition for Skills
+For Skill Learning tasks: auto-schedule review sessions using SM-2 algorithm. "You learned X 3 days ago — review today for retention."
+1–2 weeks
+★★★
+Dark Mode
+System-aware dark theme. All colors pre-defined in CSS variables for instant toggle. Warm dark palette (not pure black).
+2–3 days
+★★★
+Therapist/Coach Export
+Generate a formatted summary specifically designed for sharing with a mental health professional. Includes patterns, obstacles, mood data.
+3–5 days
+★★★★★
+Interview Prep Module
+Dedicated interview tracking: company, role, stage, prep tasks, outcome. Links to task system. Tracks application-to-interview conversion rate.
+1 week
+★★★★
+Keyboard Shortcuts
+Power-user shortcuts: N for new task, E for energy, W for wins, / for search. Reduces friction further.
+2–3 days
+★★★
+
+6. Complete Dependency Summary
+Every npm package used across all 4 phases + enhancements, with bundle size impact.
+
+Package
+Phase
+Size (gz)
+Purpose
+Alternative
+react + react-dom
+1
+~45 KB
+UI framework
+—
+react-router-dom
+1
+~14 KB
+Client routing
+TanStack Router
+zustand
+1
+~1.5 KB
+State management
+Jotai, Nanostores
+dexie + dexie-react-hooks
+1
+~25 KB
+IndexedDB wrapper
+idb, localForage
+date-fns
+1
+~7 KB*
+Date utilities
+dayjs (~2KB)
+recharts
+2
+~50 KB
+Charts
+Chart.js (~30KB)
+lucide-react
+1
+~0.5 KB*
+Icons
+Heroicons, Phosphor
+framer-motion
+1
+~30 KB
+Animations
+CSS transitions
+react-hook-form
+1
+~9 KB
+Form handling
+Formik (~13KB)
+zod
+1
+~14 KB
+Schema validation
+yup, valibot (~1KB)
+tailwindcss
+1
+~0 KB*
+CSS framework
+CSS Modules
+@dnd-kit/*
+3
+~15 KB
+Drag and drop
+react-dnd
+papaparse
+4
+~7 KB
+CSV export
+csv-stringify
+jspdf + html2canvas
+4
+~80 KB
+PDF export
+react-pdf
+vite-plugin-pwa
+4
+~0 KB*
+PWA support
+workbox-cli
+
+* Tree-shakeable: actual size depends on imports used. Total estimated bundle (Phase 1): ~120 KB gzipped. With all phases: ~250 KB gzipped.
+
+🚀 Start with Phase 1 in Antigravity. Give the agent the PRD as context.
+Load the PRD into Antigravity’s Knowledge Base so every agent task has full context.

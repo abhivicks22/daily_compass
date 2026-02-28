@@ -147,7 +147,10 @@ export function GoalSection({ weekKey }: { weekKey: string }) {
                         <div className="flex justify-end gap-2">
                             <button
                                 type="button"
-                                onClick={() => setShowForm(false)}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    setShowForm(false)
+                                }}
                                 className="px-3 py-1.5 text-xs rounded text-[var(--color-text-secondary)] hover:bg-[var(--color-paper-dark)]"
                             >
                                 Cancel
