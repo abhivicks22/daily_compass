@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Compass, CalendarDays, Settings, BarChart3, BookOpen, Target, X } from 'lucide-react'
+import { Compass, CalendarDays, Settings, BarChart3, BookOpen, Target, Heart, X } from 'lucide-react'
 
 interface SidebarProps {
     onClose: () => void
@@ -8,8 +8,9 @@ interface SidebarProps {
 const navItems = [
     { to: '/today', icon: CalendarDays, label: 'Today', enabled: true },
     { to: '/week', icon: BarChart3, label: 'Weekly Review', enabled: true },
-    { to: '/journal', icon: BookOpen, label: 'Journal', enabled: false },
-    { to: '/habits', icon: Target, label: 'Habits', enabled: false },
+    { to: '/mood', icon: Heart, label: 'Mood', enabled: true },
+    { to: '/journal', icon: BookOpen, label: 'Journal', enabled: true },
+    { to: '/habits', icon: Target, label: 'Habits', enabled: true },
     { to: '/settings', icon: Settings, label: 'Settings', enabled: true },
 ]
 
