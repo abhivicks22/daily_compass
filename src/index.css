@@ -2,70 +2,63 @@
 
 /* ===== Daily Compass Design System (Perplexity Minimalist Theme) ===== */
 
-@theme {
-  /* Ultra-muted, high-contrast monochrome palette */
-  --color-surface: #FAFAFA;
-  /* Off-white background */
-  --color-surface-card: #FFFFFF;
-  /* Pure white cards */
-  --color-surface-hover: #F1F5F9;
-  /* Slate 100 for subtle hovers */
+/* Perplexity-inspired Organic / Nature Aesthetic */
+:root {
+  /* Base Colors - Warmer, softer, more natural */
+  --color-bg-base: #f7f9f7;
+  /* Very light sage/cream tint instead of pure white/gray */
+  --color-surface: #ffffff;
+  --color-surface-hover: #eef2ed;
+  /* Soft nature tinted hover */
+  --color-surface-card: #ffffff;
 
-  --color-text-primary: #0F172A;
-  /* Slate 900 */
-  --color-text-secondary: #475569;
-  /* Slate 600 */
-  --color-text-muted: #94A3B8;
-  /* Slate 400 */
+  /* Text - Softer contrast */
+  --color-text-primary: #1f2924;
+  /* Deep forest/slate, not pure black */
+  --color-text-secondary: #52665b;
+  /* Soft sage-slate */
+  --color-text-muted: #82998d;
 
-  --color-border: #E2E8F0;
-  /* Slate 200 */
-  --color-border-light: #F1F5F9;
-  /* Slate 100 */
+  /* Borders - Extremely faint */
+  --color-border: #e3e8e4;
+  --color-border-light: #f0f3f1;
+  --color-border-focus: #acc2b5;
 
-  /* Semantic Colors - Washed out, clinical tones */
-  --color-navy: #0F172A;
-  --color-amber: #F59E0B;
-  /* Amber 500 */
-  --color-amber-light: #FEF3C7;
-  /* Amber 100 */
-  --color-amber-dark: #B45309;
-  /* Amber 700 */
-  --color-green: #10B981;
-  /* Emerald 500 */
-  --color-green-light: #D1FAE5;
-  /* Emerald 100 */
-  --color-blue: #3B82F6;
-  /* Blue 500 */
-  --color-rose: #EF4444;
-  /* Red 500 */
+  /* Accent Colors - Natural / Organic */
+  --color-rose: #d69898;
+  /* Soft clay/rose */
+  --color-blue: #9ebdd6;
+  /* Faint ocean blue */
+  --color-green: #90b89b;
+  /* Soft sage/mint */
+  --color-amber: #e3c494;
+  /* Soft sand/sunlight */
+
+  /* Radii - Softer, rounder */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows - Diffuse, floating */
+  --shadow-sm: 0 2px 8px -2px rgba(31, 41, 36, 0.04), 0 1px 3px -1px rgba(31, 41, 36, 0.02);
+  --shadow-md: 0 8px 24px -4px rgba(31, 41, 36, 0.06), 0 4px 8px -2px rgba(31, 41, 36, 0.03);
+  --shadow-float: 0 20px 40px -8px rgba(31, 41, 36, 0.08), 0 10px 16px -4px rgba(31, 41, 36, 0.04);
+
+  /* Typography - Friendlier, slightly larger */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+  /* Assumes Outfit or falls back to Inter */
 
   /* Status Colors (Muted) */
   --color-status-not-started: transparent;
-  --color-status-in-progress: #3B82F6;
-  --color-status-done: #10B981;
-  --color-status-moved: #F59E0B;
-  --color-status-dropped: #EF4444;
+  --color-status-in-progress: #9ebdd6;
+  --color-status-done: #90b89b;
+  --color-status-moved: #e3c494;
+  --color-status-dropped: #d69898;
 
-  /* Typography */
-  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-
-  /* Smooth Spacing */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-
-  /* Diffuse, soft shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
-  --shadow-float: 0 0 40px -10px rgb(0 0 0 / 0.08);
-  /* For floating nav/modals */
 }
 
 /* ===== Base Styles ===== */
@@ -84,13 +77,15 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-base);
   color: var(--color-text-primary);
-  background-color: var(--color-surface);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.01em;
-  /* Tighter tracking for that premium UI feel */
+  font-size: 15px;
+  /* Slightly larger base for mobile comfort */
 }
 
 h1,

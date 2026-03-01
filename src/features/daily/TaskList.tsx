@@ -24,23 +24,24 @@ function TaskCard({ task }: { task: TaskObject }) {
             {/* Main row */}
             <div className="flex items-center gap-3 p-3.5">
                 {/* Status toggle (Checkbox style) */}
-                <button
+                <motion.button
+                    whileTap={{ scale: 0.85 }}
                     onClick={(e) => {
                         e.stopPropagation()
                         const targetStatus = task.status === 'done' ? 'not_started' : 'done'
                         updateTask(task.id, { status: targetStatus })
                     }}
                     className={`
-            w-5 h-5 flex-shrink-0 rounded-full flex items-center justify-center text-xs
+            w-6 h-6 flex-shrink-0 rounded-full flex items-center justify-center text-xs
             transition-all duration-200 cursor-pointer border-[1.5px]
             ${task.status === 'done'
-                            ? 'bg-[var(--color-text-primary)] border-[var(--color-text-primary)] animate-check-pop'
-                            : 'bg-transparent border-[var(--color-border)] hover:border-[var(--color-text-muted)]'}
+                            ? 'bg-[var(--color-text-primary)] border-[var(--color-text-primary)] shadow-md'
+                            : 'bg-transparent border-[var(--color-border-focus)] hover:border-[var(--color-text-muted)]'}
           `}
                     title={`Mark as ${task.status === 'done' ? 'incomplete' : 'complete'}`}
                 >
-                    {task.status === 'done' && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
-                </button>
+                    {task.status === 'done' && <motion.svg initial={{ scale: 0 }} animate={{ scale: 1 }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></motion.svg>}
+                </motion.button>
 
                 {/* Title & meta */}
                 <div className="flex-1 min-w-0">
@@ -67,12 +68,13 @@ function TaskCard({ task }: { task: TaskObject }) {
                 </div>
 
                 {/* Expand/Collapse */}
-                <button
+                <motion.button
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => setExpanded(!expanded)}
-                    className="p-1.5 rounded-md opacity-0 group-hover:opacity-100 hover:bg-[var(--color-border)] transition-all"
+                    className="p-2.5 rounded-md opacity-0 group-hover:opacity-100 focus:opacity-100 hover:bg-[var(--color-border-light)] transition-all sm:opacity-0 opacity-100"
                 >
-                    {expanded ? <ChevronUp size={14} className="text-[var(--color-text-muted)]" /> : <ChevronDown size={14} className="text-[var(--color-text-muted)]" />}
-                </button>
+                    {expanded ? <ChevronUp size={16} className="text-[var(--color-text-muted)]" /> : <ChevronDown size={16} className="text-[var(--color-text-muted)]" />}
+                </motion.button>
             </div>
 
             {/* Expanded section */}
@@ -97,13 +99,14 @@ function TaskCard({ task }: { task: TaskObject }) {
                                 </label>
                                 <div className="flex gap-1.5">
                                     {timeButtons.map((min) => (
-                                        <button
+                                        <motion.button
+                                            whileTap={{ scale: 0.95 }}
                                             key={min}
                                             onClick={() => addTimeToTask(task.id, min)}
-                                            className="px-3 py-1.5 text-[11px] rounded bg-[var(--color-surface-hover)] border border-[var(--color-border)] hover:bg-[var(--color-border)] transition-colors font-medium text-[var(--color-text-secondary)]"
+                                            className="px-4 py-2 text-[12px] rounded-md bg-[var(--color-surface-hover)] border border-[var(--color-border)] hover:bg-[var(--color-border-light)] hover:text-[var(--color-text-primary)] transition-colors font-medium text-[var(--color-text-secondary)] shadow-[var(--shadow-sm)]"
                                         >
                                             +{min}m
-                                        </button>
+                                        </motion.button>
                                     ))}
                                     <input
                                         type="number"
@@ -139,14 +142,15 @@ function TaskCard({ task }: { task: TaskObject }) {
                             </div>
 
                             {/* Delete */}
-                            <div className="flex justify-end">
-                                <button
+                            <div className="flex justify-end pt-2">
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
                                     onClick={() => deleteTask(task.id)}
-                                    className="flex items-center gap-1.5 text-[11px] text-[var(--color-rose)] font-medium hover:text-[var(--color-rose)]/80 px-2 py-1 rounded-[var(--radius-sm)] hover:bg-[var(--color-rose)]/10 transition-colors"
+                                    className="flex items-center gap-1.5 text-[12px] text-[var(--color-rose)] font-medium hover:text-[var(--color-rose)] px-3 py-2 rounded-md hover:bg-[var(--color-rose)]/10 transition-colors"
                                 >
-                                    <Trash2 size={12} />
+                                    <Trash2 size={14} />
                                     Remove
-                                </button>
+                                </motion.button>
                             </div>
                         </div>
                     </motion.div>
@@ -262,8 +266,9 @@ export function TaskList() {
                                     ))}
                                 </select>
                             </div>
-                            <div className="flex justify-end gap-2 shrink-0">
-                                <button
+                            <div className="flex justify-end gap-2 shrink-0 w-full sm:w-auto mt-2 sm:mt-0">
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
                                     type="button"
                                     onClick={(e) => {
                                         e.preventDefault()
@@ -273,11 +278,12 @@ export function TaskList() {
                                         e.preventDefault()
                                         setShowForm(false)
                                     }}
-                                    className="px-3 py-1.5 text-[12px] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors relative z-10 pointer-events-auto touch-manipulation cursor-pointer font-medium"
+                                    className="px-4 py-2.5 text-[13px] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] transition-colors relative z-10 pointer-events-auto touch-manipulation cursor-pointer font-medium flex-1 sm:flex-none"
                                 >
                                     Cancel
-                                </button>
-                                <button
+                                </motion.button>
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
                                     type="button"
                                     onClick={(e) => {
                                         e.preventDefault()
@@ -287,10 +293,10 @@ export function TaskList() {
                                         e.preventDefault()
                                         submitTask()
                                     }}
-                                    className="px-4 py-1.5 text-[12px] font-medium rounded-md bg-[var(--color-text-primary)] text-[var(--color-surface)] hover:bg-[var(--color-text-secondary)] transition-colors relative z-10 pointer-events-auto touch-manipulation cursor-pointer"
+                                    className="px-6 py-2.5 text-[13px] font-medium rounded-md bg-[var(--color-text-primary)] text-[var(--color-surface)] hover:bg-[var(--color-text-secondary)] transition-colors relative z-10 pointer-events-auto touch-manipulation cursor-pointer shadow-[var(--shadow-sm)] flex-1 sm:flex-none"
                                 >
-                                    Add
-                                </button>
+                                    Add Task
+                                </motion.button>
                             </div>
                         </div>
                     </motion.div>

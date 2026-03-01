@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { Sidebar } from '@/components/Sidebar'
+import { AnimatedBackground } from '@/components/AnimatedBackground'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
@@ -7,7 +8,8 @@ export function Layout() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (
-        <div className="flex h-screen overflow-hidden bg-[var(--color-surface)]">
+        <div className="flex h-screen overflow-hidden bg-transparent">
+            <AnimatedBackground />
             {/* Mobile overlay */}
             {sidebarOpen && (
                 <div
@@ -29,9 +31,9 @@ export function Layout() {
             </aside>
 
             {/* Main content */}
-            <main className="flex-1 overflow-y-auto relative">
+            <main className="flex-1 overflow-y-auto relative z-10">
                 {/* Mobile header (Glassmorphic) */}
-                <div className="sticky top-0 z-20 lg:hidden bg-white/70 backdrop-blur-md border-b border-[var(--color-border)] px-5 py-4 flex items-center gap-3">
+                <div className="sticky top-0 z-20 lg:hidden bg-[var(--color-surface)]/70 backdrop-blur-xl border-b border-[var(--color-border)] px-5 py-4 flex items-center gap-3">
                     <button
                         onClick={() => setSidebarOpen(true)}
                         className="p-1.5 rounded-md text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] transition-colors"
@@ -39,12 +41,12 @@ export function Layout() {
                     >
                         <Menu size={20} />
                     </button>
-                    <span className="text-[16px] font-semibold tracking-tight text-[var(--color-navy)]" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <span className="text-[16px] font-semibold tracking-tight text-[var(--color-text-primary)]" style={{ fontFamily: 'var(--font-heading)' }}>
                         Daily Compass
                     </span>
                 </div>
 
-                <div className="max-w-4xl mx-auto px-6 sm:px-10 py-8 sm:py-12">
+                <div className="max-w-4xl mx-auto px-6 sm:px-12 py-10 sm:py-16">
                     <Outlet />
                 </div>
             </main>
