@@ -18,13 +18,13 @@ export function Sidebar({ onClose }: SidebarProps) {
     return (
         <div className="h-full flex flex-col bg-white border-r border-[var(--color-border)] text-[var(--color-text-primary)]">
             {/* Brand */}
-            <div className="px-5 py-6 flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[var(--color-navy)] text-white flex items-center justify-center">
-                        <Compass size={20} />
+            <div className="px-6 py-8 flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[var(--color-navy)] text-white flex items-center justify-center">
+                        <Compass size={24} />
                     </div>
                     <div>
-                        <h1 className="text-[15px] font-semibold tracking-tight text-[var(--color-navy)]" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <h1 className="text-2xl font-bold tracking-tight text-[var(--color-navy)]" style={{ fontFamily: 'var(--font-heading)' }}>
                             Daily Compass
                         </h1>
                     </div>

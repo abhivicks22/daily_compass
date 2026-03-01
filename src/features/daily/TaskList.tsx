@@ -197,8 +197,8 @@ export function TaskList() {
     }
 
     return (
-        <section className="py-6">
-            <div className="flex items-center justify-between mb-4 px-2">
+        <section className="py-2">
+            <div className="flex items-center justify-between mb-6 px-2">
                 <h3
                     className="text-[18px] font-semibold text-[var(--color-navy)] flex items-center gap-2 tracking-tight"
                     style={{ fontFamily: 'var(--font-heading)' }}

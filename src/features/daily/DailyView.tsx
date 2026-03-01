@@ -32,7 +32,7 @@ export function DailyView() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.2 }}
-            className="space-y-4"
+            className="flex flex-col min-h-[80vh] gap-12 sm:gap-16 pb-20"
         >
             <DateNavigator />
             <EnergyCheckin />

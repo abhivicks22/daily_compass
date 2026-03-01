@@ -7,7 +7,7 @@ export function ReflectionSection() {
     const prompt = getPromptForDate(currentDate)
 
     return (
-        <section className="py-6 border-b border-[var(--color-border)] last:border-b-0">
+        <section className="py-2">
             <h3
                 className="text-[16px] font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-2 tracking-tight"
                 style={{ fontFamily: 'var(--font-heading)' }}

@@ -32,16 +32,15 @@ export function Layout() {
 
             {/* Main content */}
             <main className="flex-1 overflow-y-auto relative z-10">
-                {/* Mobile header (Glassmorphic) */}
-                <div className="sticky top-0 z-20 lg:hidden bg-[var(--color-surface)]/70 backdrop-blur-xl border-b border-[var(--color-border)] px-5 py-4 flex items-center gap-3">
+                <div className="sticky top-0 z-20 lg:hidden bg-[var(--color-surface)]/70 backdrop-blur-xl border-b border-[var(--color-border)] px-5 py-5 flex items-center gap-4">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="p-1.5 rounded-md text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] transition-colors"
+                        className="p-2 rounded-md text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] transition-colors"
                         aria-label="Open menu"
                     >
-                        <Menu size={20} />
+                        <Menu size={24} />
                     </button>
-                    <span className="text-[16px] font-semibold tracking-tight text-[var(--color-text-primary)]" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <span className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]" style={{ fontFamily: 'var(--font-heading)' }}>
                         Daily Compass
                     </span>
                 </div>

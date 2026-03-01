@@ -6,7 +6,7 @@ export function EnergyCheckin() {
     const { day, setEnergy } = useDayStore()
 
     return (
-        <section className="py-6 border-b border-[var(--color-border)]">
+        <section className="py-2">
             <h3
                 className="text-[16px] font-semibold text-[var(--color-text-primary)] mb-4 tracking-tight"
                 style={{ fontFamily: 'var(--font-heading)' }}
