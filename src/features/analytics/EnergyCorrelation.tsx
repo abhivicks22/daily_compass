@@ -20,13 +20,17 @@ export function EnergyCorrelation({ stats }: { stats: WeeklyStats }) {
             <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={data} margin={{ left: -10, right: 10, top: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-light)" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="var(--color-text-muted)" opacity={0.3} vertical={false} />
                         <XAxis
                             dataKey="dayOfWeek"
-                            tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
+                            tick={{ fontSize: 13, fill: 'var(--color-text-primary)', fontWeight: 500 }}
+                            tickLine={false}
+                            axisLine={{ stroke: 'var(--color-border-focus)' }}
                         />
                         <YAxis
-                            tick={{ fontSize: 11, fill: 'var(--color-text-muted)' }}
+                            tick={{ fontSize: 13, fill: 'var(--color-text-primary)' }}
+                            tickLine={false}
+                            axisLine={false}
                             width={30}
                         />
                         <Tooltip
@@ -45,29 +49,31 @@ export function EnergyCorrelation({ stats }: { stats: WeeklyStats }) {
                         <Line
                             type="monotone"
                             dataKey="energy"
-                            stroke="var(--color-border)"
-                            strokeWidth={2}
-                            dot={{ fill: 'var(--color-surface)', stroke: 'var(--color-border)', r: 3, strokeWidth: 2 }}
+                            stroke="var(--color-amber)"
+                            strokeWidth={3}
+                            dot={{ fill: 'var(--color-surface)', stroke: 'var(--color-amber)', r: 4, strokeWidth: 2 }}
+                            activeDot={{ r: 6, fill: 'var(--color-amber)', stroke: 'var(--color-surface)', strokeWidth: 2 }}
                             name="Energy"
                         />
                         <Line
                             type="monotone"
                             dataKey="completed"
-                            stroke="var(--color-text-primary)"
-                            strokeWidth={2}
-                            dot={{ fill: 'var(--color-surface)', stroke: 'var(--color-text-primary)', r: 3, strokeWidth: 2 }}
+                            stroke="var(--color-blue)"
+                            strokeWidth={3}
+                            dot={{ fill: 'var(--color-surface)', stroke: 'var(--color-blue)', r: 4, strokeWidth: 2 }}
+                            activeDot={{ r: 6, fill: 'var(--color-blue)', stroke: 'var(--color-surface)', strokeWidth: 2 }}
                             name="Completed"
                         />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
-            <div className="flex gap-4 justify-center mt-4">
-                <div className="flex items-center gap-1.5 text-[11px] font-medium text-[var(--color-text-secondary)]">
-                    <div className="w-2.5 h-0.5 bg-[var(--color-border)] rounded" />
+            <div className="flex gap-6 justify-center mt-6">
+                <div className="flex items-center gap-2 text-[13px] font-semibold text-[var(--color-text-primary)]">
+                    <div className="w-3 h-3 bg-[var(--color-amber)] rounded-full" />
                     Energy
                 </div>
-                <div className="flex items-center gap-1.5 text-[11px] font-medium text-[var(--color-text-secondary)]">
-                    <div className="w-2.5 h-0.5 bg-[var(--color-text-primary)] rounded" />
+                <div className="flex items-center gap-2 text-[13px] font-semibold text-[var(--color-text-primary)]">
+                    <div className="w-3 h-3 bg-[var(--color-blue)] rounded-full" />
                     Tasks completed
                 </div>
             </div>

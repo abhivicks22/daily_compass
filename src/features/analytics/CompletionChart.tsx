@@ -44,14 +44,14 @@ export function CompletionChart({ stats }: { stats: WeeklyStats }) {
                                 )
                             }}
                         />
-                        <Bar dataKey="done" stackId="a" radius={[0, 0, 0, 0]} barSize={12}>
+                        <Bar dataKey="done" stackId="a" radius={[0, 0, 0, 0]} barSize={16}>
                             {data.map((_, i) => (
-                                <Cell key={i} fill="var(--color-text-primary)" />
+                                <Cell key={i} fill="var(--color-green)" fillOpacity={0.9} />
                             ))}
                         </Bar>
-                        <Bar dataKey="remaining" stackId="a" radius={[0, 2, 2, 0]} barSize={12}>
+                        <Bar dataKey="remaining" stackId="a" radius={[0, 4, 4, 0]} barSize={16}>
                             {data.map((_, i) => (
-                                <Cell key={i} fill="var(--color-border)" />
+                                <Cell key={i} fill="var(--color-border-focus)" fillOpacity={0.4} />
                             ))}
                         </Bar>
                     </BarChart>

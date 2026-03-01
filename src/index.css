@@ -184,3 +184,32 @@ select {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-border);
 }
+
+/* ===== Nature Effects ===== */
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(180deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.animate-fall {
+  position: absolute;
+  top: -10%;
+  border-radius: 50%;
+  animation: fall linear infinite;
+  pointer-events: none;
+}
