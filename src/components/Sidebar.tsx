@@ -24,7 +24,7 @@ export function Sidebar({ onClose }: SidebarProps) {
                         <Compass size={24} />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight text-[var(--color-navy)]" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <h1 className="text-xl font-bold tracking-tight text-[var(--color-navy)]" style={{ fontFamily: 'var(--font-heading)' }}>
                             Daily Compass
                         </h1>
                     </div>
@@ -46,7 +46,7 @@ export function Sidebar({ onClose }: SidebarProps) {
                         return (
                             <div
                                 key={item.to}
-                                className="flex items-center gap-3 px-4 py-2 text-[var(--color-text-muted)] opacity-50 cursor-not-allowed mx-2"
+                                className="flex items-center gap-3 px-4 py-3 text-[var(--color-text-muted)] opacity-50 cursor-not-allowed mx-2 mb-3"
                             >
                                 <Icon size={18} />
                                 <span className="text-[14px] font-medium">{item.label}</span>
@@ -60,7 +60,7 @@ export function Sidebar({ onClose }: SidebarProps) {
                             to={item.to}
                             onClick={onClose}
                             className={({ isActive }) =>
-                                `flex items-center gap-3 px-4 py-2 mx-2 mb-1 rounded-md transition-all duration-200
+                                `flex items-center gap-3 px-4 py-3 mx-2 mb-3 rounded-md transition-all duration-200
                 ${isActive
                                     ? 'bg-[var(--color-surface-hover)] text-[var(--color-navy)] font-semibold'
                                     : 'text-[var(--color-text-secondary)] hover:text-[var(--color-navy)] hover:bg-[var(--color-surface-hover)] font-medium'
