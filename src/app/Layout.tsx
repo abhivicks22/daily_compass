@@ -22,7 +22,7 @@ export function Layout() {
             <aside
                 className={`
           fixed lg:static inset-y-0 left-0 z-40
-          w-64 transform transition-transform duration-200 ease-in-out
+          w-80 transform transition-transform duration-200 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0
         `}

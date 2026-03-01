@@ -18,13 +18,6 @@ export function IntentionsSection() {
 
     return (
         <section className="py-2">
-            <h3
-                className="text-[16px] font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-2 tracking-tight"
-                style={{ fontFamily: 'var(--font-heading)' }}
-            >
-                <Lightbulb size={18} className="text-[var(--color-text-primary)]" />
-                Implementation Intentions
-            </h3>
             <p className="text-[14px] text-[var(--color-text-muted)] mb-5">
                 If-then plans help bridge the knowing-doing gap.
             </p>

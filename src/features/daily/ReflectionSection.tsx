@@ -8,13 +8,6 @@ export function ReflectionSection() {
 
     return (
         <section className="py-2">
-            <h3
-                className="text-[16px] font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-2 tracking-tight"
-                style={{ fontFamily: 'var(--font-heading)' }}
-            >
-                <Heart size={18} className="text-[var(--color-text-primary)]" />
-                Reflection
-            </h3>
             <p className="text-[14px] text-[var(--color-text-muted)] italic mb-4 mt-1">
                 "{prompt}"
             </p>

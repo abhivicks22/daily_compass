@@ -7,12 +7,6 @@ export function EnergyCheckin() {
 
     return (
         <section className="py-2">
-            <h3
-                className="text-[16px] font-semibold text-[var(--color-text-primary)] mb-4 tracking-tight"
-                style={{ fontFamily: 'var(--font-heading)' }}
-            >
-                Energy
-            </h3>
 
             <div className="flex justify-between gap-2">
                 {ENERGY_CONFIG.map(({ level, emoji, label, color }) => {

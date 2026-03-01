@@ -198,18 +198,14 @@ export function TaskList() {
 
     return (
         <section className="py-2">
-            <div className="flex items-center justify-between mb-6 px-2">
-                <h3
-                    className="text-[18px] font-semibold text-[var(--color-navy)] flex items-center gap-2 tracking-tight"
-                    style={{ fontFamily: 'var(--font-heading)' }}
-                >
-                    Tasks
+            <div className="flex items-center justify-between mb-4 px-2">
+                <div>
                     {taskStats.total > 0 && (
                         <span className="text-[14px] font-medium px-2.5 py-0.5 rounded-full bg-[var(--color-surface-hover)] text-[var(--color-text-muted)]">
-                            {taskStats.done}/{taskStats.total}
+                            {taskStats.done}/{taskStats.total} done
                         </span>
                     )}
-                </h3>
+                </div>
                 {!showForm && (
                     <motion.button
                         whileTap={{ scale: 0.97 }}
