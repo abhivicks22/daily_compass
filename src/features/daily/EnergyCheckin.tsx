@@ -8,7 +8,7 @@ export function EnergyCheckin() {
     return (
         <section className="py-6 border-b border-[var(--color-border)]">
             <h3
-                className="text-[14px] font-semibold text-[var(--color-text-primary)] mb-4 tracking-tight"
+                className="text-[16px] font-semibold text-[var(--color-text-primary)] mb-4 tracking-tight"
                 style={{ fontFamily: 'var(--font-heading)' }}
             >
                 Energy
@@ -35,7 +35,7 @@ export function EnergyCheckin() {
                                 {emoji}
                             </span>
                             <span
-                                className={`text-[11px] font-medium ${isSelected ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-muted)]'}`}
+                                className={`text-[13px] font-medium ${isSelected ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-muted)]'}`}
                             >
                                 {label}
                             </span>

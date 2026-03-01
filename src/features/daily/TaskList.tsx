@@ -46,21 +46,21 @@ function TaskCard({ task }: { task: TaskObject }) {
                 {/* Title & meta */}
                 <div className="flex-1 min-w-0">
                     <p
-                        className={`text-sm font-medium truncate ${task.status === 'done' ? 'line-through text-[var(--color-text-muted)]' : 'text-[var(--color-navy)]'
+                        className={`text-[16px] font-medium truncate ${task.status === 'done' ? 'line-through text-[var(--color-text-muted)]' : 'text-[var(--color-navy)]'
                             }`}
                     >
                         {task.title}
                     </p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-[11px] px-1.5 py-0.5 rounded-sm bg-[var(--color-border-light)] text-[var(--color-text-secondary)] font-medium">
+                    <div className="flex items-center gap-2 mt-1">
+                        <span className="text-[13px] px-2 py-0.5 rounded-sm bg-[var(--color-border-light)] text-[var(--color-text-secondary)] font-medium">
                             {task.category}
                         </span>
-                        <span className="text-[11px] text-[var(--color-text-muted)]">
+                        <span className="text-[13px] text-[var(--color-text-muted)]">
                             {PRIORITY_CONFIG[task.priority].emoji} {PRIORITY_CONFIG[task.priority].label}
                         </span>
                         {task.timeSpent > 0 && (
-                            <span className="text-[11px] text-[var(--color-text-muted)] flex items-center gap-0.5">
-                                <Clock size={10} />
+                            <span className="text-[13px] text-[var(--color-text-muted)] flex items-center gap-1">
+                                <Clock size={12} />
                                 {task.timeSpent}m
                             </span>
                         )}
@@ -90,20 +90,20 @@ function TaskCard({ task }: { task: TaskObject }) {
                         <div className="p-3.5 space-y-3">
                             {/* Time buttons */}
                             <div>
-                                <label className="text-xs font-medium text-[var(--color-text-secondary)] mb-1.5 flex items-center gap-1">
-                                    <Clock size={12} />
+                                <label className="text-[14px] font-medium text-[var(--color-text-secondary)] mb-2 flex items-center gap-1.5">
+                                    <Clock size={14} />
                                     Time spent
                                     {task.timeSpent > 0 && (
                                         <span className="text-[var(--color-amber-dark)] font-semibold">({task.timeSpent} min total)</span>
                                     )}
                                 </label>
-                                <div className="flex gap-1.5">
+                                <div className="flex gap-2">
                                     {timeButtons.map((min) => (
                                         <motion.button
                                             whileTap={{ scale: 0.95 }}
                                             key={min}
                                             onClick={() => addTimeToTask(task.id, min)}
-                                            className="px-4 py-2 text-[12px] rounded-md bg-[var(--color-surface-hover)] border border-[var(--color-border)] hover:bg-[var(--color-border-light)] hover:text-[var(--color-text-primary)] transition-colors font-medium text-[var(--color-text-secondary)] shadow-[var(--shadow-sm)]"
+                                            className="px-4 py-2 text-[14px] rounded-md bg-[var(--color-surface-hover)] border border-[var(--color-border)] hover:bg-[var(--color-border-light)] hover:text-[var(--color-text-primary)] transition-colors font-medium text-[var(--color-text-secondary)] shadow-[var(--shadow-sm)]"
                                         >
                                             +{min}m
                                         </motion.button>
@@ -112,7 +112,7 @@ function TaskCard({ task }: { task: TaskObject }) {
                                         type="number"
                                         placeholder="Custom"
                                         min={1}
-                                        className="w-20 px-2 py-1.5 text-[11px] rounded bg-transparent border-b border-[var(--color-border)] focus:outline-none focus:border-[var(--color-text-primary)] transition-colors"
+                                        className="w-24 px-3 py-2 text-[14px] rounded bg-transparent border-b border-[var(--color-border)] focus:outline-none focus:border-[var(--color-text-primary)] transition-colors"
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
                                                 const val = parseInt((e.target as HTMLInputElement).value)
@@ -128,8 +128,8 @@ function TaskCard({ task }: { task: TaskObject }) {
 
                             {/* Obstacle */}
                             <div>
-                                <label className="text-xs font-medium text-[var(--color-text-secondary)] mb-1.5 flex items-center gap-1">
-                                    <AlertTriangle size={12} />
+                                <label className="text-[14px] font-medium text-[var(--color-text-secondary)] mb-2 flex items-center gap-1.5">
+                                    <AlertTriangle size={14} />
                                     What got in the way? <span className="text-[var(--color-text-muted)] font-normal">(optional)</span>
                                 </label>
                                 <textarea
@@ -137,7 +137,7 @@ function TaskCard({ task }: { task: TaskObject }) {
                                     onChange={(e) => updateTask(task.id, { obstacle: e.target.value })}
                                     placeholder="External factors, distractions, unclear requirements..."
                                     rows={2}
-                                    className="w-full px-3 py-2 text-sm bg-transparent border-b border-[var(--color-border)] focus:outline-none focus:border-[var(--color-text-primary)] transition-colors resize-none mb-2"
+                                    className="w-full px-3 py-3 text-[15px] bg-transparent border-b border-[var(--color-border)] focus:outline-none focus:border-[var(--color-text-primary)] transition-colors resize-none mb-2"
                                 />
                             </div>
 
@@ -146,9 +146,9 @@ function TaskCard({ task }: { task: TaskObject }) {
                                 <motion.button
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => deleteTask(task.id)}
-                                    className="flex items-center gap-1.5 text-[12px] text-[var(--color-rose)] font-medium hover:text-[var(--color-rose)] px-3 py-2 rounded-md hover:bg-[var(--color-rose)]/10 transition-colors"
+                                    className="flex items-center gap-1.5 text-[14px] text-[var(--color-rose)] font-medium hover:text-[var(--color-rose)] px-3 py-2 rounded-md hover:bg-[var(--color-rose)]/10 transition-colors"
                                 >
-                                    <Trash2 size={14} />
+                                    <Trash2 size={16} />
                                     Remove
                                 </motion.button>
                             </div>
@@ -200,12 +200,12 @@ export function TaskList() {
         <section className="py-6">
             <div className="flex items-center justify-between mb-4 px-2">
                 <h3
-                    className="text-[16px] font-semibold text-[var(--color-navy)] flex items-center gap-2 tracking-tight"
+                    className="text-[18px] font-semibold text-[var(--color-navy)] flex items-center gap-2 tracking-tight"
                     style={{ fontFamily: 'var(--font-heading)' }}
                 >
                     Tasks
                     {taskStats.total > 0 && (
-                        <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-[var(--color-surface-hover)] text-[var(--color-text-muted)]">
+                        <span className="text-[14px] font-medium px-2.5 py-0.5 rounded-full bg-[var(--color-surface-hover)] text-[var(--color-text-muted)]">
                             {taskStats.done}/{taskStats.total}
                         </span>
                     )}
@@ -214,9 +214,9 @@ export function TaskList() {
                     <motion.button
                         whileTap={{ scale: 0.97 }}
                         onClick={() => setShowForm(true)}
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium rounded-md text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
+                        className="flex items-center gap-1.5 px-3 py-2 text-[14px] font-medium rounded-md text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
                     >
-                        <Plus size={14} />
+                        <Plus size={16} />
                         Add task
                     </motion.button>
                 )}
@@ -243,14 +243,14 @@ export function TaskList() {
                                 }
                             }}
                             placeholder="What do you need to do?"
-                            className="w-full py-2 text-sm bg-transparent border-b border-[var(--color-border)] focus:outline-none focus:border-[var(--color-text-primary)] transition-colors mb-3 placeholder-[var(--color-text-muted)]"
+                            className="w-full py-3 text-[16px] bg-transparent border-b border-[var(--color-border)] focus:outline-none focus:border-[var(--color-text-primary)] transition-colors mb-4 placeholder-[var(--color-text-muted)]"
                         />
                         <div className="flex flex-wrap items-center justify-between gap-3">
                             <div className="flex gap-2">
                                 <select
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
-                                    className="px-2 py-1 text-[11px] font-medium rounded text-[var(--color-text-secondary)] bg-[var(--color-surface-hover)] hover:bg-[var(--color-border)] cursor-pointer focus:outline-none"
+                                    className="px-3 py-1.5 text-[13px] font-medium rounded text-[var(--color-text-secondary)] bg-[var(--color-surface-hover)] hover:bg-[var(--color-border)] cursor-pointer focus:outline-none"
                                 >
                                     {categories.map((c) => (
                                         <option key={c} value={c}>{c}</option>
@@ -259,7 +259,7 @@ export function TaskList() {
                                 <select
                                     value={priority}
                                     onChange={(e) => setPriority(e.target.value as Priority)}
-                                    className="px-2 py-1 text-[11px] font-medium rounded text-[var(--color-text-secondary)] bg-[var(--color-surface-hover)] hover:bg-[var(--color-border)] cursor-pointer focus:outline-none"
+                                    className="px-3 py-1.5 text-[13px] font-medium rounded text-[var(--color-text-secondary)] bg-[var(--color-surface-hover)] hover:bg-[var(--color-border)] cursor-pointer focus:outline-none"
                                 >
                                     {Object.entries(PRIORITY_CONFIG).map(([key, config]) => (
                                         <option key={key} value={key}>{config.emoji} {config.label}</option>
@@ -278,7 +278,7 @@ export function TaskList() {
                                         e.preventDefault()
                                         setShowForm(false)
                                     }}
-                                    className="px-4 py-2.5 text-[13px] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] transition-colors relative z-10 pointer-events-auto touch-manipulation cursor-pointer font-medium flex-1 sm:flex-none"
+                                    className="px-4 py-2.5 text-[15px] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] transition-colors relative z-10 pointer-events-auto touch-manipulation cursor-pointer font-medium flex-1 sm:flex-none"
                                 >
                                     Cancel
                                 </motion.button>
@@ -293,7 +293,7 @@ export function TaskList() {
                                         e.preventDefault()
                                         submitTask()
                                     }}
-                                    className="px-6 py-2.5 text-[13px] font-medium rounded-md bg-[var(--color-text-primary)] text-[var(--color-surface)] hover:bg-[var(--color-text-secondary)] transition-colors relative z-10 pointer-events-auto touch-manipulation cursor-pointer shadow-[var(--shadow-sm)] flex-1 sm:flex-none"
+                                    className="px-6 py-2.5 text-[15px] font-medium rounded-md bg-[var(--color-text-primary)] text-[var(--color-surface)] hover:bg-[var(--color-text-secondary)] transition-colors relative z-10 pointer-events-auto touch-manipulation cursor-pointer shadow-[var(--shadow-sm)] flex-1 sm:flex-none"
                                 >
                                     Add Task
                                 </motion.button>
@@ -313,11 +313,11 @@ export function TaskList() {
 
             {/* Empty state */}
             {day.tasks.length === 0 && !showForm && (
-                <div className="py-8 text-center border border-dashed border-[var(--color-border)] rounded-lg">
-                    <p className="text-[13px] text-[var(--color-text-muted)]">No tasks yet for today</p>
+                <div className="py-10 text-center border border-dashed border-[var(--color-border)] rounded-lg">
+                    <p className="text-[15px] text-[var(--color-text-muted)]">No tasks yet for today</p>
                     <button
                         onClick={() => setShowForm(true)}
-                        className="mt-2 text-[13px] text-[var(--color-text-primary)] hover:underline font-medium transition-colors"
+                        className="mt-2 text-[15px] text-[var(--color-text-primary)] hover:underline font-medium transition-colors"
                     >
                         Add your first task
                     </button>
