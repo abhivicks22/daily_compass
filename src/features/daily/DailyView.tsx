@@ -6,6 +6,7 @@ import { TaskList } from './TaskList'
 import { WinsSection } from './WinsSection'
 import { ReflectionSection } from './ReflectionSection'
 import { IntentionsSection } from './IntentionsSection'
+import { Accordion } from '@/components/Accordion'
 import { motion } from 'framer-motion'
 
 export function DailyView() {
@@ -32,14 +33,29 @@ export function DailyView() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.2 }}
-            className="flex flex-col min-h-[80vh] gap-12 sm:gap-16 pb-20"
+            className="flex flex-col min-h-[80vh] gap-4 pb-20 max-w-2xl mx-auto w-full"
         >
             <DateNavigator />
-            <EnergyCheckin />
-            <WinsSection />
-            <TaskList />
-            <IntentionsSection />
-            <ReflectionSection />
+
+            <Accordion title="Energy Check-in" defaultOpen={true}>
+                <EnergyCheckin />
+            </Accordion>
+
+            <Accordion title="Tasks">
+                <TaskList />
+            </Accordion>
+
+            <Accordion title="This Week's Wins">
+                <WinsSection />
+            </Accordion>
+
+            <Accordion title="Daily Intentions">
+                <IntentionsSection />
+            </Accordion>
+
+            <Accordion title="End of Day Reflection">
+                <ReflectionSection />
+            </Accordion>
         </motion.div>
     )
 }
